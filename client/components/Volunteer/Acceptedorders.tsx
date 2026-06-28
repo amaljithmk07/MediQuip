@@ -1,0 +1,145 @@
+"use client";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter as useNavigate } from 'next/navigation';
+import Link from 'next/link';
+
+
+import Base_URL from "../Constant/constant";
+
+const AcceptedOrders = () => {
+  const navigate = useNavigate();
+  const token = (typeof window !== 'undefined' ? sessionStorage.getItem("Token") : null);
+  const [acceptedorders, setAcceptedorders] = useState([]);
+
+  //Display Accepted Orders
+
+  useEffect(() => {
+    axios
+      // .get(`http://localhost:2222/api/volunteer/accepted-orders`, {
+      .get(`${Base_URL}/api/volunteer/accepted-orders`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((data) => {
+        // console.log(data);
+        setAcceptedorders(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        // if (err.response.status == 401) {
+        //   toast.error("Session Time Out", {
+        //     position: "top-center",
+        //   });
+        //   setTimeout(() => {
+        //     sessionStorage.clear();
+
+        //     navigate.push("/login");
+        //   }, 2000);
+        // }
+      });
+  }, []);
+  console.log(acceptedorders);
+
+  //Status Delivered
+
+  const deliveredHandler = (id) => {
+    axios
+      .put(
+        // `http://localhost:2222/api/volunteer/order-placed/${id}`,
+        `${Base_URL}/api/volunteer/order-placed/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((data) => {
+        const orderplace = acceptedorders.filter((details) => {
+          if (details._id == id) {
+            details.orderstatus = "Delivered";
+          }
+          return details;
+        });
+        setAcceptedorders(orderplace);
+        // console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  return (
+    <div className="accepted-orders-main-body">
+      <Toaster />
+      <div className="a-o-sub-body">
+        <div className="a-o-body-head">Accepted Orders</div>
+        <div className="a-o-content-body">
+          {acceptedorders != "" ? (
+            <>
+              <div className="a-o-content-title-sec">
+                <div className="a-o-content-title">name</div>
+                <div className="a-o-content-title">category</div>
+                <div className="a-o-content-title">sub category</div>
+                <div className="a-o-content-title-qty">qty</div>
+                <div className="a-o-content-title">details</div>
+                <div className="a-o-content-title">Deliver Status</div>
+              </div>
+              {acceptedorders.map((data) => (
+                <div className="a-o-content" key={data._id}>
+                  <div className="a-o-content-item">{data.name} </div>
+                  <div className="a-o-content-item">{data.category} </div>
+                  <div className="a-o-content-item">{data.sub_category}</div>
+                  <div className="a-o-content-item-qty">{data.cart_qty}</div>
+                  {/* <div className="a-o-content-item">{data.orderstatus}</div> */}
+                  <div className="a-o-content-item">
+                    <Link
+                      href={`/volunteer/view-details/${data._id}`}
+                      className="a-o-content-item-viewdetails"
+                    >
+                      View Details{" "}
+                    </Link>
+                  </div>
+                  <div className="a-o-content-item">
+                    {data.orderstatus !== "Delivered" ? (
+                      <button
+                        onClick={() => deliveredHandler(data._id)}
+                        className="order-place-btn"
+                      >
+                        Order Place
+                      </button>
+                    ) : (
+                      <>
+                        {" "}
+                        Order Placed
+                        <img
+                          // src="/order-delivered-tick.png"
+                          src="https://res.cloudinary.com/dqc2xhnac/image/upload/v1708583158/Med-equip/etm7upipvfudkneftinh.png"
+                          alt=""
+                          className="order-delivered"
+                        />
+                      </>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </>
+          ) : (
+            // <img src="/no-data.png" alt="" className="a-o-nodata" />
+            <img
+              src="https://res.cloudinary.com/dqc2xhnac/image/upload/v1708583159/Med-equip/wyoytdmiqhpdgfkf4puz.png"
+              alt=""
+              className="a-o-nodata"
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AcceptedOrders;
