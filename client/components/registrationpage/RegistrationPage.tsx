@@ -42,17 +42,17 @@ const RegistrationPage = () => {
   const nextStep = () => {
     if (step === 1) {
       if (!letter.email || !letter.password) {
-        toast.error("Please fill all fields", { position: "top-center" });
+        toast.error("Please enter a valid email and password.", { position: "top-center" });
         return;
       }
       let validemail = letter.email.match(/^([a-zA-Z0-9._-]+)@([a-zA-Z]+)\.([a-zA-Z]{2,})$/);
       if (!validemail) {
-        toast.error("Please enter a valid email", { position: "top-center" });
+        toast.error("Please enter a valid email address (e.g., name@organization.com).", { position: "top-center" });
         return;
       }
     } else if (step === 2) {
       if (!letter.name || !letter.age || !letter.phone_number) {
-        toast.error("Please fill all personal details", { position: "top-center" });
+        toast.error("Please provide your full name, age, and phone number.", { position: "top-center" });
         return;
       }
     }
@@ -93,8 +93,8 @@ const RegistrationPage = () => {
         
         <div className="text-center mb-6 relative z-10">
           <img src="/logo.png" alt="Med.Equip Logo" className="h-14 mx-auto mb-6 object-contain" />
-          <h1 className="text-3xl font-display font-bold text-slate-800 mb-2">Create your account</h1>
-          <p className="text-slate-500 mb-6">Join our trusted medical equipment network</p>
+          <h1 className="text-3xl font-display font-bold text-slate-800 mb-2">Create your MediQuip Account</h1>
+          <p className="text-slate-500 mb-6">Create an account to start donating or requesting medical equipment.</p>
           
           {/* Google OAuth Register Button */}
           <div className="flex justify-center mb-6">
@@ -126,7 +126,7 @@ const RegistrationPage = () => {
               <h3 className="text-xl font-bold text-slate-700 mb-4">Account Details</h3>
               <div>
                 <label className="block text-sm font-medium text-slate-600 mb-1">Email Address</label>
-                <input type="email" name="email" value={letter.email || ''} onChange={letterHandler} placeholder="Enter your email" className={inputClass} />
+                <input type="email" name="email" value={letter.email || ''} onChange={letterHandler} placeholder="name@example.com" className={inputClass} />
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-600 mb-1">Password</label>
@@ -142,8 +142,8 @@ const RegistrationPage = () => {
             <div className="space-y-5 animate-fade-in-right">
               <h3 className="text-xl font-bold text-slate-700 mb-4">Personal Information</h3>
               <div>
-                <label className="block text-sm font-medium text-slate-600 mb-1">Full Name</label>
-                <input type="text" name="name" value={letter.name || ''} onChange={letterHandler} placeholder="John Doe" className={inputClass} />
+                <label className="block text-sm font-medium text-slate-600 mb-1">Full Legal Name *</label>
+                <input type="text" name="name" value={letter.name || ''} onChange={letterHandler} placeholder="e.g., John Doe" className={inputClass} />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -151,8 +151,8 @@ const RegistrationPage = () => {
                   <input type="number" name="age" value={letter.age || ''} onChange={letterHandler} placeholder="Age" className={inputClass} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-600 mb-1">Phone</label>
-                  <input type="tel" name="phone_number" value={letter.phone_number || ''} onChange={letterHandler} placeholder="Phone Number" className={inputClass} />
+                  <label className="block text-sm font-medium text-slate-600 mb-1">Phone Number *</label>
+                  <input type="tel" name="phone_number" value={letter.phone_number || ''} onChange={letterHandler} placeholder="(555) 123-4567" className={inputClass} />
                 </div>
               </div>
               <div className="flex gap-4 mt-6">

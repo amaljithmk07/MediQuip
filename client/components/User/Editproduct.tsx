@@ -91,7 +91,7 @@ const Editproduct = () => {
       <div className="edit-main-body">
         <div className="edit-body">
           <div className="edit-sub-body">
-            UPDATE PRODUCT DETAILS
+            UPDATE EQUIPMENT DETAILS
             <div className="edit-content">
               <form
                 action=""
@@ -121,7 +121,7 @@ const Editproduct = () => {
                   <div className="edit-input-field">
                     <input
                       type="text"
-                      placeholder="Name"
+                      placeholder="Equipment Name *"
                       name="name"
                       value={products.name}
                       className="edit-product-input"
@@ -145,7 +145,7 @@ const Editproduct = () => {
                     </select>
                     <input
                       type="text"
-                      placeholder="Description"
+                      placeholder="Description (e.g., used for 2 months, excellent condition) *"
                       name="description"
                       value={products.description}
                       className="edit-product-input"
@@ -298,7 +298,7 @@ const Editproduct = () => {
                     />
                     <input
                       type="text"
-                      placeholder="Email"
+                      placeholder="Email Address *"
                       value={products.email}
                       className="edit-product-input"
                       name="email"
@@ -314,7 +314,7 @@ const Editproduct = () => {
                     />
                     <input
                       type="button"
-                      value={"UPDATE"}
+                      value={"UPDATE EQUIPMENT"}
                       className="edit-product-update"
                       onClick={() => productSubmit(products._id)}
                     />

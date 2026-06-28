@@ -79,7 +79,7 @@ const Useraddproduct = () => {
           {/* <Usernavbar/> */}
           <div className="user-addproduct-body">
             <div className="user-addproduct-sub-body">
-              ADD PRODUCT DETAILS
+              DONATE MEDICAL EQUIPMENT
               <div className="user-addproduct-content">
                 <form
                   action=""
@@ -98,7 +98,7 @@ const Useraddproduct = () => {
                       />
                       <label htmlFor="file-upload" className="cursor-pointer flex flex-col items-center justify-center border-2 border-dashed border-slate-300 rounded-xl p-8 bg-slate-50 hover:bg-slate-100 transition-colors w-full h-48">
                         <ImagePlus className="w-12 h-12 text-slate-400 mb-4" />
-                        <span className="text-sm text-slate-500 font-medium">Click to upload product image</span>
+                        <span className="text-sm text-slate-500 font-medium">Click to upload equipment image</span>
                       </label>
                       {products.image ? (
                         <div className="flex items-center gap-2 mt-4 text-sm font-medium text-text bg-white p-3 rounded-lg border border-border shadow-sm">
@@ -114,7 +114,7 @@ const Useraddproduct = () => {
                     <div className="userinput-field">
                       <input
                         type="text"
-                        placeholder="Name"
+                        placeholder="Equipment Name *"
                         name="name"
                         className="user-product-input"
                         onChange={keyHandler}
@@ -137,7 +137,7 @@ const Useraddproduct = () => {
                       </select>
                       <input
                         type="text"
-                        placeholder="Description"
+                        placeholder="Description (e.g., used for 2 months, excellent condition) *"
                         name="description"
                         className="user-product-input"
                         onChange={keyHandler}
@@ -256,7 +256,7 @@ const Useraddproduct = () => {
                       </select>
                       <input
                         type="text"
-                        placeholder="Email"
+                        placeholder="Email Address *"
                         className="user-product-input"
                         name="email"
                         onChange={keyHandler}
@@ -292,7 +292,7 @@ const Useraddproduct = () => {
                       />
                       <input
                         type="submit"
-                        value={"SUBMIT"}
+                        value={"LIST FOR DONATION"}
                         className="user-product-submit"
                         // onClick={productSubmit}
                       />
@@ -310,7 +310,7 @@ const Useraddproduct = () => {
               <Link href={"/login"} className="flex flex-col items-center justify-center p-12 bg-white rounded-[24px] border border-border shadow-sm hover:shadow-md transition-shadow group max-w-md w-full text-center">
                 <ShieldAlert className="w-16 h-16 text-warning mb-6 group-hover:scale-110 transition-transform duration-300" />
                 <h3 className="text-2xl font-bold text-text mb-3 tracking-tight">Authentication Required</h3>
-                <p className="text-muted text-sm font-medium">Please log in to your account to add products to the inventory system.</p>
+                <p className="text-muted text-sm font-medium">Please log in to your account to list equipment in the inventory system.</p>
               </Link>
             </div>
           ) : (
@@ -320,7 +320,7 @@ const Useraddproduct = () => {
                   <Link href={"/uuidverify"} className="flex flex-col items-center justify-center p-12 bg-white rounded-[24px] border border-border shadow-sm hover:shadow-md transition-shadow group max-w-md w-full text-center">
                     <ShieldAlert className="w-16 h-16 text-warning mb-6 group-hover:scale-110 transition-transform duration-300" />
                     <h3 className="text-2xl font-bold text-text mb-3 tracking-tight">Security Check Required</h3>
-                    <p className="text-muted text-sm font-medium">Please verify your UUID key before accessing the product inventory.</p>
+                    <p className="text-muted text-sm font-medium">Please verify your UUID key before accessing the equipment inventory.</p>
                   </Link>
                 </div>
               ) : (

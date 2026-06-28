@@ -43,7 +43,7 @@ const Viewproduct = () => {
           navigate.push("/login");
         }, 3000);
       } else {
-        toast.error("Failed to load products");
+        toast.error("Failed to load equipment catalog");
       }
     } finally {
       setIsLoading(false);
@@ -53,11 +53,11 @@ const Viewproduct = () => {
   const cartHandler = async (item) => {
     try {
       await productService.addToCart(token, item);
-      toast.success("Added to cart successfully!");
+      toast.success("Request initiated successfully!");
       // Optionally sync cart via Redux here if required
     } catch (err) {
       console.error(err);
-      toast.error("Failed to add to cart");
+      toast.error("Failed to initiate request");
     }
   };
 
@@ -177,7 +177,7 @@ const Viewproduct = () => {
                       disabled={item.available_qty === 0}
                     >
                       <ShoppingCart size={16} /> 
-                      {item.available_qty === 0 ? "Out of Stock" : "Add to Cart"}
+                      {item.available_qty === 0 ? "Out of Stock" : "Request Equipment"}
                     </Button>
                   )}
                 </div>
@@ -187,7 +187,7 @@ const Viewproduct = () => {
         ) : (
           <div className="flex flex-col items-center justify-center py-24 bg-white rounded-xl border border-base-border shadow-sm">
             <Package size={48} className="text-base-muted mb-4" />
-            <h3 className="text-lg font-bold text-base-text mb-1">No products found</h3>
+            <h3 className="text-lg font-bold text-base-text mb-1">No equipment found</h3>
             <p className="text-base-muted text-sm">Try adjusting your search terms or check back later.</p>
           </div>
         )}

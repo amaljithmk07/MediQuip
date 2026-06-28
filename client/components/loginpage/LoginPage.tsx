@@ -26,7 +26,7 @@ function LoginPage() {
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
     if (!credentials.email || !credentials.password) {
-      toast.error("Please fill in all fields", { position: "top-center" });
+      toast.error("Please enter a valid email and password.", { position: "top-center" });
       return;
     }
     await login(credentials);
@@ -87,8 +87,8 @@ function LoginPage() {
 
         <Card className="w-full max-w-md animate-fade-in border-slate-200">
           <CardHeader className="text-center pb-2">
-            <CardTitle className="text-3xl font-display">Welcome Back</CardTitle>
-            <CardDescription>Enter your credentials to access your account.</CardDescription>
+            <CardTitle className="text-3xl font-display">Sign in to MediQuip</CardTitle>
+            <CardDescription>Access your dashboard to manage medical equipment requests and donations.</CardDescription>
           </CardHeader>
           
           <CardContent>
@@ -119,7 +119,7 @@ function LoginPage() {
                   name="email"
                   value={credentials.email}
                   onChange={handleInputChange}
-                  placeholder="Email Address"
+                  placeholder="name@example.com"
                   className="pl-10"
                 />
               </div>

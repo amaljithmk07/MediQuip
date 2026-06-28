@@ -66,7 +66,7 @@ const Sidebar = () => {
       {/* Logo Area */}
       <div className="h-16 flex items-center px-6 border-b border-slate-200">
         <Link href="/" className="flex items-center gap-2.5">
-          <img src="/logo.png" alt="Med.Equip" className="h-8 object-contain" />
+          <img src="/logo.png" alt="MediQuip" className="h-8 object-contain" />
         </Link>
       </div>
 
@@ -122,13 +122,13 @@ const Sidebar = () => {
               <NavItem
                 href="/user/cart"
                 icon={ShoppingCart}
-                label="Cart"
+                label="My Requests"
                 badge={cartitems.length}
               />
               <NavItem
                 href="/user/order-summary"
                 icon={List}
-                label="My Orders"
+                label="Request History"
               />
             </div>
           </>
@@ -143,12 +143,12 @@ const Sidebar = () => {
             <NavItem
               href="/admin/new-product"
               icon={Package}
-              label="New Arrivals"
+              label="New Equipment"
             />
             <NavItem
               href="/volunteer/request"
               icon={ClipboardCheck}
-              label="Order Requests"
+              label="Equipment Requests"
             />
             <NavItem href="/volunteer/list" icon={List} label="Volunteers" />
           </div>
@@ -168,12 +168,12 @@ const Sidebar = () => {
             <NavItem
               href="/volunteer/pending-orders"
               icon={Clock}
-              label="Pending Orders"
+              label="Pending Deliveries"
             />
             <NavItem
               href="/volunteer/accepted-orders"
               icon={ClipboardCheck}
-              label="Accepted Orders"
+              label="Active Deliveries"
             />
           </div>
         )}
