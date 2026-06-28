@@ -1,4 +1,4 @@
-import Viewdetails from "@/components/Volunteer/Viewdetails";
+import Viewdetails from '@/components/Volunteer/Viewdetails';
 
 export default function Page() {
   return <Viewdetails />;

@@ -1,6 +1,6 @@
-const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
-const RefreshToken = require("../models/RefreshToken");
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const RefreshToken = require('../models/RefreshToken');
 
 class TokenService {
   /**
@@ -14,7 +14,7 @@ class TokenService {
         userEmail: user.email,
       },
       process.env.SECRET_KEY,
-      { expiresIn: "15m" }
+      { expiresIn: '15m' }
     );
   }
 
@@ -32,7 +32,7 @@ class TokenService {
       userId: user._id,
       tokenHash,
       expiresAt,
-      deviceInfo
+      deviceInfo,
     });
 
     await refreshTokenDoc.save();
@@ -48,15 +48,15 @@ class TokenService {
     const tokenDoc = await RefreshToken.findOne({ tokenHash });
 
     if (!tokenDoc) {
-      throw new Error("Refresh token not found");
+      throw new Error('Refresh token not found');
     }
 
     if (tokenDoc.revoked) {
-      throw new Error("Refresh token has been revoked");
+      throw new Error('Refresh token has been revoked');
     }
 
     if (new Date() > tokenDoc.expiresAt) {
-      throw new Error("Refresh token has expired");
+      throw new Error('Refresh token has expired');
     }
 
     return tokenDoc;
@@ -75,26 +75,26 @@ class TokenService {
    * Sets the HTTP-Only cookies for the tokens
    */
   setTokenCookies(res, accessToken, refreshToken) {
-    res.cookie("accessToken", accessToken, {
+    res.cookie('accessToken', accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 15 * 60 * 1000 // 15 min
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 15 * 60 * 1000, // 15 min
     });
 
     if (refreshToken) {
-      res.cookie("refreshToken", refreshToken, {
+      res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
     }
   }
 
   clearTokenCookies(res) {
-    res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");
+    res.clearCookie('accessToken');
+    res.clearCookie('refreshToken');
   }
 }
 

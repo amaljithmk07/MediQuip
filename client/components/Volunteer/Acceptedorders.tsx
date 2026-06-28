@@ -1,17 +1,16 @@
-"use client";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+'use client';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
-import toast, { Toaster } from "react-hot-toast";
+import toast, { Toaster } from 'react-hot-toast';
 import { useRouter as useNavigate } from 'next/navigation';
 import Link from 'next/link';
 
-
-import Base_URL from "../Constant/constant";
+import Base_URL from '../Constant/constant';
 
 const AcceptedOrders = () => {
   const navigate = useNavigate();
-  const token = (typeof window !== 'undefined' ? sessionStorage.getItem("Token") : null);
+  const token = typeof window !== 'undefined' ? sessionStorage.getItem('Token') : null;
   const [acceptedorders, setAcceptedorders] = useState([]);
 
   //Display Accepted Orders
@@ -61,7 +60,7 @@ const AcceptedOrders = () => {
       .then((data) => {
         const orderplace = acceptedorders.filter((details) => {
           if (details._id == id) {
-            details.orderstatus = "Delivered";
+            details.orderstatus = 'Delivered';
           }
           return details;
         });
@@ -79,7 +78,7 @@ const AcceptedOrders = () => {
       <div className="a-o-sub-body">
         <div className="a-o-body-head">Accepted Orders</div>
         <div className="a-o-content-body">
-          {acceptedorders != "" ? (
+          {acceptedorders != '' ? (
             <>
               <div className="a-o-content-title-sec">
                 <div className="a-o-content-title">name</div>
@@ -101,11 +100,11 @@ const AcceptedOrders = () => {
                       href={`/volunteer/view-details/${data._id}`}
                       className="a-o-content-item-viewdetails"
                     >
-                      View Details{" "}
+                      View Details{' '}
                     </Link>
                   </div>
                   <div className="a-o-content-item">
-                    {data.orderstatus !== "Delivered" ? (
+                    {data.orderstatus !== 'Delivered' ? (
                       <button
                         onClick={() => deliveredHandler(data._id)}
                         className="order-place-btn"
@@ -114,7 +113,7 @@ const AcceptedOrders = () => {
                       </button>
                     ) : (
                       <>
-                        {" "}
+                        {' '}
                         Order Placed
                         <img
                           // src="/order-delivered-tick.png"

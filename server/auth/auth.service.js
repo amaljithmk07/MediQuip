@@ -1,7 +1,7 @@
-const bcrypt = require("bcryptjs");
-const loginSchema = require("../models/loginschema");
-const VolunteerDB = require("../models/volunteerRegisterschema");
-const { default: mongoose } = require("mongoose");
+const bcrypt = require('bcryptjs');
+const loginSchema = require('../models/loginschema');
+const VolunteerDB = require('../models/volunteerRegisterschema');
+const { default: mongoose } = require('mongoose');
 
 class AuthService {
   /**
@@ -9,12 +9,12 @@ class AuthService {
    */
   async loginWithEmailAndPassword(email, password) {
     if (!email || !password) {
-      throw new Error("All fields are required!");
+      throw new Error('All fields are required!');
     }
 
     const loweremail = email.toLowerCase();
     const user = await loginSchema.findOne({ email: loweremail });
-    
+
     if (!user) {
       throw new Error("Email doesn't exist");
     }
@@ -23,20 +23,20 @@ class AuthService {
     if (user.role == 3) {
       const loginId = new mongoose.Types.ObjectId(user._id);
       const volunteer = await VolunteerDB.findOne({ login_id: loginId });
-      
-      if (!volunteer || volunteer.status !== "Approved") {
-        throw new Error("Request not approved");
+
+      if (!volunteer || volunteer.status !== 'Approved') {
+        throw new Error('Request not approved');
       }
     }
 
     if (!user.password) {
-      throw new Error("Please login with Google");
+      throw new Error('Please login with Google');
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
-    
+
     if (!isPasswordCorrect) {
-      throw new Error("Incorrect password");
+      throw new Error('Incorrect password');
     }
 
     return user;

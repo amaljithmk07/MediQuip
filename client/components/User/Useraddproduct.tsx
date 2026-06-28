@@ -1,23 +1,21 @@
-"use client";
-import React, { useState } from "react";
+'use client';
+import React, { useState } from 'react';
 
-import axios from "axios";
+import axios from 'axios';
 import { useRouter as useNavigate } from 'next/navigation';
 import Link from 'next/link';
 import { ImagePlus, CheckCircle, ShieldAlert } from 'lucide-react';
 
-
-import Base_URL from "../Constant/constant";
+import Base_URL from '../Constant/constant';
 // import Usernavbar from "../UserNavbar/Usernavbar";
 
 const Useraddproduct = () => {
-  const token = (typeof window !== 'undefined' ? sessionStorage.getItem("Token") : null);
-  const uuid = (typeof window !== 'undefined' ? sessionStorage.getItem("uuid") : null);
-  const role = (typeof window !== 'undefined' ? sessionStorage.getItem("Role") : null);
+  const token = typeof window !== 'undefined' ? sessionStorage.getItem('Token') : null;
+  const uuid = typeof window !== 'undefined' ? sessionStorage.getItem('uuid') : null;
+  const role = typeof window !== 'undefined' ? sessionStorage.getItem('Role') : null;
   console.log(uuid);
   const [products, setProducts] = useState({});
   const navigate = useNavigate();
-
 
   //Input handler
   const keyHandler = (event) => {
@@ -39,17 +37,17 @@ const Useraddproduct = () => {
   const productSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append("image", products.image);
-    formData.append("name", products.name);
-    formData.append("description", products.description);
-    formData.append("available_qty", products.available_qty);
-    formData.append("category", products.category);
-    formData.append("sub_category", products.sub_category);
-    formData.append("email", products.email);
-    formData.append("purchased_date", products.purchased_date);
-    formData.append("phone_number", products.phone_number);
-    formData.append("address", products.address);
-    formData.append("pin_code", products.pin_code);
+    formData.append('image', products.image);
+    formData.append('name', products.name);
+    formData.append('description', products.description);
+    formData.append('available_qty', products.available_qty);
+    formData.append('category', products.category);
+    formData.append('sub_category', products.sub_category);
+    formData.append('email', products.email);
+    formData.append('purchased_date', products.purchased_date);
+    formData.append('phone_number', products.phone_number);
+    formData.append('address', products.address);
+    formData.append('pin_code', products.pin_code);
 
     try {
       axios
@@ -62,7 +60,7 @@ const Useraddproduct = () => {
         .then((data) => {
           console.log(data);
           // window.location.reload()
-          navigate.push("/user/viewproduct");
+          navigate.push('/user/viewproduct');
         })
         .catch((err) => {
           console.log(err);
@@ -74,7 +72,7 @@ const Useraddproduct = () => {
 
   return (
     <>
-      {(uuid !== null || role == "1") && token !== null ? (
+      {(uuid !== null || role == '1') && token !== null ? (
         <div className="useraddproduct-main-body">
           {/* <Usernavbar/> */}
           <div className="user-addproduct-body">
@@ -96,9 +94,14 @@ const Useraddproduct = () => {
                         onChange={handlePhoto}
                         hidden
                       />
-                      <label htmlFor="file-upload" className="cursor-pointer flex flex-col items-center justify-center border-2 border-dashed border-slate-300 rounded-xl p-8 bg-slate-50 hover:bg-slate-100 transition-colors w-full h-48">
+                      <label
+                        htmlFor="file-upload"
+                        className="cursor-pointer flex flex-col items-center justify-center border-2 border-dashed border-slate-300 rounded-xl p-8 bg-slate-50 hover:bg-slate-100 transition-colors w-full h-48"
+                      >
                         <ImagePlus className="w-12 h-12 text-slate-400 mb-4" />
-                        <span className="text-sm text-slate-500 font-medium">Click to upload equipment image</span>
+                        <span className="text-sm text-slate-500 font-medium">
+                          Click to upload equipment image
+                        </span>
                       </label>
                       {products.image ? (
                         <div className="flex items-center gap-2 mt-4 text-sm font-medium text-text bg-white p-3 rounded-lg border border-border shadow-sm">
@@ -157,9 +160,7 @@ const Useraddproduct = () => {
 
                         <option value="Beds"> Beds</option>
                         <option value="Wheel chair"> Wheel chair</option>
-                        <option value="Oxygen Concentrators">
-                          Oxygen Concentrators
-                        </option>
+                        <option value="Oxygen Concentrators">Oxygen Concentrators</option>
                         <option value="Walking Aids"> Walking Aids</option>
                         <option value="Patient Lift"> Patient Lift</option>
                       </select>
@@ -171,87 +172,59 @@ const Useraddproduct = () => {
                         <option disabled={true} value="" selected>
                           Sub Category
                         </option>
-                        {products.category == "Beds" ? (
+                        {products.category == 'Beds' ? (
                           <>
-                            <option value="Adjustable Beds">
-                              Adjustable Beds
-                            </option>
+                            <option value="Adjustable Beds">Adjustable Beds</option>
                             <option value="Mattresses"> Mattresses</option>
-                            <option value="Home Care Beds">
-                              {" "}
-                              Home Care Beds
-                            </option>
+                            <option value="Home Care Beds"> Home Care Beds</option>
                           </>
                         ) : (
-                          ""
+                          ''
                         )}
-                        {products.category == "Wheel chair" ? (
+                        {products.category == 'Wheel chair' ? (
                           <>
-                            <option value="Manual Wheel chair">
-                              Manual Wheel chair
-                            </option>
-                            <option value="Power Wheel chair">
-                              {" "}
-                              Power Wheel chair
-                            </option>
+                            <option value="Manual Wheel chair">Manual Wheel chair</option>
+                            <option value="Power Wheel chair"> Power Wheel chair</option>
                             <option value="Standard"> Standard</option>
                             <option value="Light Weight">Light Weight</option>
                             <option value="Cushions And Accessories">
-                              {" "}
+                              {' '}
                               Cushions And Accessories
                             </option>
-                            <option value="Batteries And Chargers">
-                              {" "}
-                              Batteries And Chargers
-                            </option>
+                            <option value="Batteries And Chargers"> Batteries And Chargers</option>
                             <option value="Wheels"> Wheels</option>
                           </>
                         ) : (
-                          ""
+                          ''
                         )}
-                        {products.category == "Oxygen Concentrators" ? (
+                        {products.category == 'Oxygen Concentrators' ? (
                           <>
-                            <option value="Stationary Units">
-                              {" "}
-                              Stationary Units
-                            </option>
-                            <option value="Portable Units">
-                              {" "}
-                              Portable Units
-                            </option>
+                            <option value="Stationary Units"> Stationary Units</option>
+                            <option value="Portable Units"> Portable Units</option>
                           </>
                         ) : (
-                          ""
+                          ''
                         )}
 
-                        {products.category == "Walking Aids" ? (
+                        {products.category == 'Walking Aids' ? (
                           <>
                             <option value="Walkers"> Walkers</option>
                             <option value="Rollator"> Rollator</option>
                             <option value="Knee Roller"> Knee Roller</option>
-                            <option value="Upright Walker">
-                              {" "}
-                              Upright Walker
-                            </option>
+                            <option value="Upright Walker"> Upright Walker</option>
                           </>
                         ) : (
-                          ""
+                          ''
                         )}
-                        {products.category == "Patient Lift" ? (
+                        {products.category == 'Patient Lift' ? (
                           <>
                             <option value="Manual Lift"> Manual Lift</option>
                             <option value="Power Lift"> Power Lift</option>
-                            <option value="Stand-up Lift">
-                              {" "}
-                              Stand-up Lift
-                            </option>
-                            <option value="Heavy Duty Lift">
-                              {" "}
-                              Heavy Duty Lift
-                            </option>
+                            <option value="Stand-up Lift"> Stand-up Lift</option>
+                            <option value="Heavy Duty Lift"> Heavy Duty Lift</option>
                           </>
                         ) : (
-                          ""
+                          ''
                         )}
                       </select>
                       <input
@@ -292,7 +265,7 @@ const Useraddproduct = () => {
                       />
                       <input
                         type="submit"
-                        value={"LIST FOR DONATION"}
+                        value={'LIST FOR DONATION'}
                         className="user-product-submit"
                         // onClick={productSubmit}
                       />
@@ -307,20 +280,34 @@ const Useraddproduct = () => {
         <>
           {token == null ? (
             <div className="min-h-[60vh] flex items-center justify-center p-4">
-              <Link href={"/login"} className="flex flex-col items-center justify-center p-12 bg-white rounded-[24px] border border-border shadow-sm hover:shadow-md transition-shadow group max-w-md w-full text-center">
+              <Link
+                href={'/login'}
+                className="flex flex-col items-center justify-center p-12 bg-white rounded-[24px] border border-border shadow-sm hover:shadow-md transition-shadow group max-w-md w-full text-center"
+              >
                 <ShieldAlert className="w-16 h-16 text-warning mb-6 group-hover:scale-110 transition-transform duration-300" />
-                <h3 className="text-2xl font-bold text-text mb-3 tracking-tight">Authentication Required</h3>
-                <p className="text-muted text-sm font-medium">Please log in to your account to list equipment in the inventory system.</p>
+                <h3 className="text-2xl font-bold text-text mb-3 tracking-tight">
+                  Authentication Required
+                </h3>
+                <p className="text-muted text-sm font-medium">
+                  Please log in to your account to list equipment in the inventory system.
+                </p>
               </Link>
             </div>
           ) : (
             <>
               {uuid == null ? (
                 <div className="min-h-[60vh] flex items-center justify-center p-4">
-                  <Link href={"/uuidverify"} className="flex flex-col items-center justify-center p-12 bg-white rounded-[24px] border border-border shadow-sm hover:shadow-md transition-shadow group max-w-md w-full text-center">
+                  <Link
+                    href={'/uuidverify'}
+                    className="flex flex-col items-center justify-center p-12 bg-white rounded-[24px] border border-border shadow-sm hover:shadow-md transition-shadow group max-w-md w-full text-center"
+                  >
                     <ShieldAlert className="w-16 h-16 text-warning mb-6 group-hover:scale-110 transition-transform duration-300" />
-                    <h3 className="text-2xl font-bold text-text mb-3 tracking-tight">Security Check Required</h3>
-                    <p className="text-muted text-sm font-medium">Please verify your UUID key before accessing the equipment inventory.</p>
+                    <h3 className="text-2xl font-bold text-text mb-3 tracking-tight">
+                      Security Check Required
+                    </h3>
+                    <p className="text-muted text-sm font-medium">
+                      Please verify your UUID key before accessing the equipment inventory.
+                    </p>
                   </Link>
                 </div>
               ) : (

@@ -1,12 +1,12 @@
-const express = require("express");
+const express = require('express');
 const registerroutes = express.Router();
-const bcrypt = require("bcryptjs");
-const registerDB = require("../models/registerschema");
-const volunteerDB = require("../models/volunteerRegisterschema");
-const loginDB = require("../models/loginschema");
-const uuid = require("uuid");
+const bcrypt = require('bcryptjs');
+const registerDB = require('../models/registerschema');
+const volunteerDB = require('../models/volunteerRegisterschema');
+const loginDB = require('../models/loginschema');
+const uuid = require('uuid');
 
-registerroutes.post("/user", async (req, res) => {
+registerroutes.post('/user', async (req, res) => {
   // console.log('test',req.body.password);
 
   try {
@@ -15,9 +15,7 @@ registerroutes.post("/user", async (req, res) => {
     console.log(lower_email);
     const oldUser = await loginDB.findOne({ email: lower_email });
     if (oldUser) {
-      return res
-        .status(400)
-        .json({ success: false, error: true, message: "User already exists" });
+      return res.status(400).json({ success: false, error: true, message: 'User already exists' });
     }
     // const { firstName, lastName, email, password, role } = req.body;
 
@@ -28,7 +26,7 @@ registerroutes.post("/user", async (req, res) => {
       return res.status(400).json({
         success: false,
         error: true,
-        message: "Phone number already exists",
+        message: 'Phone number already exists',
       });
     }
     const hashedPassword = await bcrypt.hash(req.body.password, 12);
@@ -55,7 +53,7 @@ registerroutes.post("/user", async (req, res) => {
       res.status(201).json({
         success: true,
         error: false,
-        message: "Registration completed",
+        message: 'Registration completed',
         details: result2,
       });
     }
@@ -63,14 +61,14 @@ registerroutes.post("/user", async (req, res) => {
     res.status(500).json({
       success: false,
       error: true,
-      message: "Something went wrong",
+      message: 'Something went wrong',
       errorMessage: error.message,
     });
     console.log(error);
   }
 });
 
-registerroutes.post("/volunteer", async (req, res) => {
+registerroutes.post('/volunteer', async (req, res) => {
   // console.log('test',req.body.password);
 
   try {
@@ -78,9 +76,7 @@ registerroutes.post("/volunteer", async (req, res) => {
     const lower_email = email.toLowerCase();
     const oldUser = await loginDB.findOne({ email: lower_email });
     if (oldUser) {
-      return res
-        .status(400)
-        .json({ success: false, error: true, message: "User already exists" });
+      return res.status(400).json({ success: false, error: true, message: 'User already exists' });
     }
     // const { firstName, lastName, email, password, role } = req.body;
 
@@ -91,7 +87,7 @@ registerroutes.post("/volunteer", async (req, res) => {
       return res.status(400).json({
         success: false,
         error: true,
-        message: "Phone number already exists",
+        message: 'Phone number already exists',
       });
     }
     const hashedPassword = await bcrypt.hash(req.body.password, 12);
@@ -117,7 +113,7 @@ registerroutes.post("/volunteer", async (req, res) => {
       res.status(201).json({
         success: true,
         error: false,
-        message: "Registration completed",
+        message: 'Registration completed',
         details: result2,
       });
     }
@@ -125,7 +121,7 @@ registerroutes.post("/volunteer", async (req, res) => {
     res.status(500).json({
       success: false,
       error: true,
-      message: "Something went wrong",
+      message: 'Something went wrong',
       errorMessage: error.message,
     });
     console.log(error);

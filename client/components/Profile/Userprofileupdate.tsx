@@ -1,26 +1,25 @@
-"use client";
-import React, { useEffect, useState } from "react";
+'use client';
+import React, { useEffect, useState } from 'react';
 
-import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
+import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 import { useRouter as useNavigate } from 'next/navigation';
 import Link from 'next/link';
 
-
-import Base_URL from "../Constant/constant";
+import Base_URL from '../Constant/constant';
 
 const Userprofileupdate = () => {
   const navigate = useNavigate();
-  const token = (typeof window !== 'undefined' ? sessionStorage.getItem("Token") : null);
+  const token = typeof window !== 'undefined' ? sessionStorage.getItem('Token') : null;
   // const role = (typeof window !== 'undefined' ? sessionStorage.getItem("Role") : null);
 
   const [profile, setProfile] = useState([
     {
-      image: "",
-      name: "",
-      age: "",
-      email: "",
-      phone_number: "",
+      image: '',
+      name: '',
+      age: '',
+      email: '',
+      phone_number: '',
     },
   ]);
   useEffect(() => {
@@ -38,12 +37,12 @@ const Userprofileupdate = () => {
       .catch((err) => {
         console.log(err);
         if (err.response.status == 401) {
-          toast.error("Session Time Out", {
-            position: "top-center",
+          toast.error('Session Time Out', {
+            position: 'top-center',
           });
           setTimeout(() => {
             sessionStorage.clear();
-            navigate.push("/login");
+            navigate.push('/login');
           }, 2000);
         }
       });
@@ -64,11 +63,11 @@ const Userprofileupdate = () => {
   const profileUpdate = (e, id) => {
     e.preventDefault();
     var formDetails = new FormData();
-    formDetails.append("image", profile.image);
-    formDetails.append("name", profile.name);
-    formDetails.append("age", profile.age);
-    formDetails.append("phone_number", profile.phone_number);
-    formDetails.append("email", profile.email);
+    formDetails.append('image', profile.image);
+    formDetails.append('name', profile.name);
+    formDetails.append('age', profile.age);
+    formDetails.append('phone_number', profile.phone_number);
+    formDetails.append('email', profile.email);
     console.log(formDetails);
     axios
       // .post(`http://localhost:2222/api/user/profileupdate/${id}`, formDetails, {
@@ -79,18 +78,18 @@ const Userprofileupdate = () => {
       })
 
       .then((data) => {
-        console.log("data", data);
-        navigate.push("/profile");
+        console.log('data', data);
+        navigate.push('/profile');
       })
       .catch((err) => {
-        console.log("err:", err);
+        console.log('err:', err);
         if (err.response.status == 401) {
-          toast.error("Session Time Out", {
-            position: "top-center",
+          toast.error('Session Time Out', {
+            position: 'top-center',
           });
           setTimeout(() => {
             sessionStorage.clear();
-            navigate.push("/login");
+            navigate.push('/login');
           }, 2000);
         }
       });
@@ -101,11 +100,7 @@ const Userprofileupdate = () => {
       <Toaster />
       <div className="userprofile-home-body">
         <div className="userprofile-home-sub-body">
-          <form
-            action=""
-            className="userprofile-home-sub-body-form"
-            encType="multipart/form-data"
-          >
+          <form action="" className="userprofile-home-sub-body-form" encType="multipart/form-data">
             <div className="userprofile-home-content">
               <div className="userprofile-home-image">
                 <input
@@ -176,14 +171,14 @@ const Userprofileupdate = () => {
                 <img src="/address.png" alt="" className="address-img" />
                  add address{" "}
                 </Link> */}
-              <Link href={"/user/address"} className="address-sec">
+              <Link href={'/user/address'} className="address-sec">
                 {/* <img src="/addaddress.png" alt="" className="address-img" /> */}
                 <img
                   src="https://res.cloudinary.com/dqc2xhnac/image/upload/v1708583165/Med-equip/t0d9cnlc7o6yq3gugawl.png"
                   alt=""
                   className="address-img"
                 />
-                saved addressess{" "}
+                saved addressess{' '}
               </Link>
 
               <button

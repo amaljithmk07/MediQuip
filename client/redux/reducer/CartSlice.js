@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import Base_URL from "../../components/Constant/constant";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import Base_URL from '../../components/Constant/constant';
 
 const initialState = {
   cartitems: [],
@@ -8,11 +8,11 @@ const initialState = {
   error: null,
 };
 
-var token = typeof window !== 'undefined' ? sessionStorage.getItem("Token") : null;
-var id = typeof window !== 'undefined' ? sessionStorage.getItem("LoginId") : null;
-console.log("token", token);
+var token = typeof window !== 'undefined' ? sessionStorage.getItem('Token') : null;
+var id = typeof window !== 'undefined' ? sessionStorage.getItem('LoginId') : null;
+console.log('token', token);
 
-export const cartView = createAsyncThunk("content/cartView", async () => {
+export const cartView = createAsyncThunk('content/cartView', async () => {
   // const res = await axios.get(`http://localhost:2222/api/user/cartview/${id}`, {
   const res = await axios.get(`${Base_URL}/api/user/cartview/${id}`, {
     headers: {
@@ -22,46 +22,40 @@ export const cartView = createAsyncThunk("content/cartView", async () => {
   const data = await res.data.data;
   return data;
 });
-export const incrementqty = createAsyncThunk(
-  "content/cartIncrement",
-  async (id, item) => {
-    console.log(id);
-    // console.log(item);
+export const incrementqty = createAsyncThunk('content/cartIncrement', async (id, item) => {
+  console.log(id);
+  // console.log(item);
 
-    const res = await axios.get(
-      // `http://localhost:2222/api/user/cartincrement/${id}`,
-      `${Base_URL}/api/user/cartincrement/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const data = await res.data.data;
-    return data;
-  }
-);
-export const decrementqty = createAsyncThunk(
-  "content/cartdecrement",
-  async (id) => {
-    console.log(id);
-    // console.log(item);
+  const res = await axios.get(
+    // `http://localhost:2222/api/user/cartincrement/${id}`,
+    `${Base_URL}/api/user/cartincrement/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  const data = await res.data.data;
+  return data;
+});
+export const decrementqty = createAsyncThunk('content/cartdecrement', async (id) => {
+  console.log(id);
+  // console.log(item);
 
-    const res = await axios.get(
-      // `http://localhost:2222/api/user/cartdecrement/${id}`,
-      `${Base_URL}/api/user/cartdecrement/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const data = await res.data.data;
-    return data;
-  }
-);
+  const res = await axios.get(
+    // `http://localhost:2222/api/user/cartdecrement/${id}`,
+    `${Base_URL}/api/user/cartdecrement/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  const data = await res.data.data;
+  return data;
+});
 
-export const cartdelete = createAsyncThunk("content/cartdelete", async (id) => {
+export const cartdelete = createAsyncThunk('content/cartdelete', async (id) => {
   const res = await axios.get(
     // `http://localhost:2222/api/user/cartdelete/${id}`,
     `${Base_URL}/api/user/cartdelete/${id}`,
@@ -76,7 +70,7 @@ export const cartdelete = createAsyncThunk("content/cartdelete", async (id) => {
 });
 
 export const contentSlice = createSlice({
-  name: "content",
+  name: 'content',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -104,7 +98,7 @@ export const contentSlice = createSlice({
       // console.log(action.payload);
       var cart_qty = action.payload.cart_qty;
       var availableQty = action.payload.availableQty;
-      console.log("cart_qty", action.payload);
+      console.log('cart_qty', action.payload);
 
       var id = action.payload._id;
       const updatedData = state.cartitems.filter((details) => {
@@ -131,7 +125,7 @@ export const contentSlice = createSlice({
       // console.log(action.payload);
       var cart_qty = action.payload.cart_qty;
       var availableQty = action.payload.availableQty;
-      console.log("cart_qty", action.payload);
+      console.log('cart_qty', action.payload);
 
       var id = action.payload._id;
       const updatedData = state.cartitems.filter((details) => {

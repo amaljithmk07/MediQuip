@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Verify = () => {
   return (
@@ -8,7 +8,8 @@ const Verify = () => {
     .path {stroke-dasharray: 0 !important;}
   </style>
 <![endif]*/}
-      <svg className="svg"
+      <svg
+        className="svg"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 130.2 130.2"
@@ -33,7 +34,6 @@ const Verify = () => {
           points="100.2,40.2 51.5,88.8 29.8,67.5 "
         />
       </svg>
-     
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import Volunteerhome from "@/components/Volunteer/Volunteerhome";
+import Volunteerhome from '@/components/Volunteer/Volunteerhome';
 
 export default function Page() {
   return <Volunteerhome />;

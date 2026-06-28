@@ -1,14 +1,14 @@
-"use client";
-import React, { useEffect, useState } from "react";
+'use client';
+import React, { useEffect, useState } from 'react';
 
-import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
+import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 import { useRouter as useNavigate } from 'next/navigation';
 
-import Base_URL from "../Constant/constant";
+import Base_URL from '../Constant/constant';
 
 const Volunteerrequest = () => {
-  const token = (typeof window !== 'undefined' ? sessionStorage.getItem("Token") : null);
+  const token = typeof window !== 'undefined' ? sessionStorage.getItem('Token') : null;
   const navigate = useNavigate();
   const [volunteerreqlist, setVolunteerreqlist] = useState([]);
   useEffect(() => {
@@ -26,12 +26,12 @@ const Volunteerrequest = () => {
       .catch((err) => {
         console.log(err);
         if (err.response.status == 401) {
-          toast.error("Session Time Out", {
-            position: "top-center",
+          toast.error('Session Time Out', {
+            position: 'top-center',
           });
           setTimeout(() => {
             sessionStorage.clear();
-            navigate.push("/login");
+            navigate.push('/login');
           }, 2000);
         }
       });
@@ -58,7 +58,7 @@ const Volunteerrequest = () => {
           console.log(data);
           const updatedstatus = volunteerreqlist.filter((details) => {
             if (details._id == id) {
-              details.status = "Approved";
+              details.status = 'Approved';
             }
             return details;
           });
@@ -68,7 +68,7 @@ const Volunteerrequest = () => {
           console.log(err);
         });
     } catch (err) {
-      console.log("catch error:", err);
+      console.log('catch error:', err);
     }
   };
 
@@ -91,7 +91,7 @@ const Volunteerrequest = () => {
         // setVolunteerreqlist(data.data.data);
         const rejecteddata = volunteerreqlist.filter((data) => {
           if (data._id == id) {
-            data.status = "Rejected";
+            data.status = 'Rejected';
           }
           return data;
         });
@@ -122,40 +122,28 @@ const Volunteerrequest = () => {
             </div>
             {volunteerreqlist.map((data) => (
               <div className="vol-req-container-body" key={data._id}>
-                <div className="vol-req-data">{data._id.slice(18,25)}</div>
+                <div className="vol-req-data">{data._id.slice(18, 25)}</div>
                 <div className="vol-req-data">{data.name}</div>
                 <div className="vol-req-data">{data.age}</div>
                 <div className="vol-req-data">{data.phone_number}</div>
                 <div className="vol-req-data">{data.qualification}</div>
                 <div className="vol-req-data">{data.status}</div>
                 <div className="vol-req-data">
-                  {data.status === "Approved" ? (
-                    <button
-                      id="btn-accepted"
-                      onClick={() => approveHandler(data._id)}
-                    >
+                  {data.status === 'Approved' ? (
+                    <button id="btn-accepted" onClick={() => approveHandler(data._id)}>
                       Accepted
                     </button>
                   ) : (
-                    <button
-                      id="btn-approve"
-                      onClick={() => approveHandler(data._id)}
-                    >
+                    <button id="btn-approve" onClick={() => approveHandler(data._id)}>
                       Accept
                     </button>
                   )}
-                  {data.status === "Rejected" ? (
-                    <button
-                      onClick={() => rejectHandler(data._id)}
-                      id="btn-declined"
-                    >
+                  {data.status === 'Rejected' ? (
+                    <button onClick={() => rejectHandler(data._id)} id="btn-declined">
                       Rejected
                     </button>
                   ) : (
-                    <button
-                      onClick={() => rejectHandler(data._id)}
-                      id="btn-reject"
-                    >
+                    <button onClick={() => rejectHandler(data._id)} id="btn-reject">
                       Reject
                     </button>
                   )}

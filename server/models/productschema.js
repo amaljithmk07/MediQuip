@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema; //schema definition
 
 const productschema = new mongoose.Schema({
@@ -7,7 +7,7 @@ const productschema = new mongoose.Schema({
   },
   login_id: {
     type: Schema.Types.ObjectId,
-    ref: "login_tb",
+    ref: 'login_tb',
     required: true,
   },
   available_qty: {
@@ -53,13 +53,13 @@ const productschema = new mongoose.Schema({
   wishlist: {
     type: String,
     require: true,
-    default: "",
+    default: '',
   },
   product_status: {
     type: String,
     require: true,
-    default: "",
+    default: '',
   },
 });
-const data = mongoose.model("Product_details", productschema);
+const data = mongoose.model('Product_details', productschema);
 module.exports = data;

@@ -23,7 +23,7 @@ api.interceptors.response.use(
       try {
         // Silent background token refresh
         await axios.post(`${Base_URL}/api/auth/refresh`, {}, { withCredentials: true });
-        
+
         // If successful, retry the original failed request
         return api(originalRequest);
       } catch (refreshError) {
@@ -35,7 +35,7 @@ api.interceptors.response.use(
         return Promise.reject(refreshError);
       }
     }
-    
+
     // For non-401 errors, or if retry fails, return error
     return Promise.reject(error);
   }

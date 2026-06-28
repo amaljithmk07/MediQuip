@@ -5,7 +5,7 @@ export const authService = {
     const response = await api.post('/api/auth/login', credentials);
     return response.data;
   },
-  
+
   registerUser: async (userData) => {
     const response = await api.post('/api/user/registration', userData);
     return response.data;
@@ -23,5 +23,5 @@ export const authService = {
       sessionStorage.removeItem('LoginId');
       sessionStorage.removeItem('uuid');
     }
-  }
+  },
 };

@@ -1,12 +1,8 @@
-import React from "react";
-import Sidebar from "@/components/layout/Sidebar";
-import TopHeader from "@/components/layout/TopHeader";
+import React from 'react';
+import Sidebar from '@/components/layout/Sidebar';
+import TopHeader from '@/components/layout/TopHeader';
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen bg-slate-50">
       {/* Persistent Sidebar */}
@@ -16,9 +12,7 @@ export default function DashboardLayout({
       <div className="flex-1 flex flex-col ml-64 min-h-screen">
         <TopHeader />
         <main className="flex-1 p-8">
-          <div className="max-w-[1600px] mx-auto w-full">
-            {children}
-          </div>
+          <div className="max-w-[1600px] mx-auto w-full">{children}</div>
         </main>
       </div>
     </div>

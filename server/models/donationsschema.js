@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const donationschema = new mongoose.Schema({
   name: {
     type: String,
@@ -13,5 +13,5 @@ const donationschema = new mongoose.Schema({
     required: true,
   },
 });
-const data = mongoose.model("donation_tb", donationschema);
+const data = mongoose.model('donation_tb', donationschema);
 module.exports = data;

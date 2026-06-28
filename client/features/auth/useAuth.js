@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useState } from 'react';
 import { authService } from '../../services/auth.service';
 import toast from 'react-hot-toast';
@@ -12,24 +12,24 @@ export const useAuth = () => {
     setError(null);
     try {
       const data = await authService.login(credentials);
-      toast.success("Login Successful", { position: "top-center" });
-      
+      toast.success('Login Successful', { position: 'top-center' });
+
       if (typeof window !== 'undefined') {
-        sessionStorage.setItem("Token", data.token);
-        sessionStorage.setItem("Role", data.userRole);
-        sessionStorage.setItem("LoginId", data.loginId);
-        
+        sessionStorage.setItem('Token', data.token);
+        sessionStorage.setItem('Role', data.userRole);
+        sessionStorage.setItem('LoginId', data.loginId);
+
         if (onSuccess) {
           onSuccess(data);
         } else {
-          window.location.href = "/";
+          window.location.href = '/';
         }
       }
       return data;
     } catch (err) {
-      const errorMessage = err.response?.data?.message || "Login failed";
+      const errorMessage = err.response?.data?.message || 'Login failed';
       setError(errorMessage);
-      toast.error(errorMessage, { position: "top-center" });
+      toast.error(errorMessage, { position: 'top-center' });
       throw err;
     } finally {
       setIsLoading(false);
@@ -38,13 +38,13 @@ export const useAuth = () => {
 
   const logout = () => {
     authService.logout();
-    window.location.href = "/login";
+    window.location.href = '/login';
   };
 
   return {
     login,
     logout,
     isLoading,
-    error
+    error,
   };
 };

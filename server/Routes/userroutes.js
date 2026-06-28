@@ -1,19 +1,19 @@
-const express = require("express");
-const multer = require("multer");
+const express = require('express');
+const multer = require('multer');
 const userroutes = express.Router();
-const registerDB = require("../models/registerschema");
-const LoginDB = require("../models/loginschema");
-const products = require("../models/productschema");
-const CartDB = require("../models/cartschema");
-const OrdersDB = require("../models/orderschema");
-const Checkauth = require("../middle-ware/Checkauth");
-const AddressDB = require("../models/addressschema");
-const DonationDB = require("../models/donationsschema");
-const { default: mongoose } = require("mongoose");
-require("dotenv").config();
+const registerDB = require('../models/registerschema');
+const LoginDB = require('../models/loginschema');
+const products = require('../models/productschema');
+const CartDB = require('../models/cartschema');
+const OrdersDB = require('../models/orderschema');
+const Checkauth = require('../middle-ware/Checkauth');
+const AddressDB = require('../models/addressschema');
+const DonationDB = require('../models/donationsschema');
+const { default: mongoose } = require('mongoose');
+require('dotenv').config();
 
-const cloudinary = require("cloudinary").v2;
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -23,7 +23,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "Med-equip",
+    folder: 'Med-equip',
   },
 });
 const upload = multer({ storage: storage });
@@ -43,7 +43,7 @@ const upload = multer({ storage: storage });
 
 //---Product add
 
-userroutes.post("/add", upload.single("image"), Checkauth, (req, res) => {
+userroutes.post('/add', upload.single('image'), Checkauth, (req, res) => {
   try {
     const Data = new products({
       // image: req.file ? req.file.filename : null,
@@ -65,7 +65,7 @@ userroutes.post("/add", upload.single("image"), Checkauth, (req, res) => {
         res.status(200).json({
           success: true,
           error: false,
-          message: "Data added successfully",
+          message: 'Data added successfully',
           data: data,
         });
       })
@@ -73,16 +73,15 @@ userroutes.post("/add", upload.single("image"), Checkauth, (req, res) => {
         res.status(400).json({
           error: true,
           success: false,
-          message: "data add failed ",
+          message: 'data add failed ',
           errorMessage: err.message,
         });
       });
   } catch (err) {
-
     res.status(500).json({
       error: true,
       success: false,
-      message: "Internal server error",
+      message: 'Internal server error',
       errorMessage: err.message,
     });
   }
@@ -90,7 +89,7 @@ userroutes.post("/add", upload.single("image"), Checkauth, (req, res) => {
 
 // UnAuthorised Product View
 
-userroutes.get("/demo-view", (req, res) => {
+userroutes.get('/demo-view', (req, res) => {
   try {
     products
       .find()
@@ -98,7 +97,7 @@ userroutes.get("/demo-view", (req, res) => {
         res.status(200).json({
           success: true,
           error: false,
-          message: "Data fetched successfully",
+          message: 'Data fetched successfully',
           data: data,
         });
       })
@@ -106,7 +105,7 @@ userroutes.get("/demo-view", (req, res) => {
         res.status(400).json({
           success: false,
           error: true,
-          message: "data fetched failed",
+          message: 'data fetched failed',
           ErrorMessage: err.message,
         });
       });
@@ -114,7 +113,7 @@ userroutes.get("/demo-view", (req, res) => {
     res.status(500).json({
       success: false,
       error: true,
-      message: "Internal Error",
+      message: 'Internal Error',
       ErrorMessage: err.message,
     });
   }
@@ -122,7 +121,7 @@ userroutes.get("/demo-view", (req, res) => {
 
 //---Product Display
 
-userroutes.get("/view", Checkauth, (req, res) => {
+userroutes.get('/view', Checkauth, (req, res) => {
   try {
     products
       .find()
@@ -130,7 +129,7 @@ userroutes.get("/view", Checkauth, (req, res) => {
         res.status(200).json({
           success: true,
           error: false,
-          message: "Data fetched successfully",
+          message: 'Data fetched successfully',
           data: data,
         });
       })
@@ -138,7 +137,7 @@ userroutes.get("/view", Checkauth, (req, res) => {
         res.status(400).json({
           success: false,
           error: true,
-          message: "data fetched failed",
+          message: 'data fetched failed',
           ErrorMessage: err.message,
         });
       });
@@ -146,7 +145,7 @@ userroutes.get("/view", Checkauth, (req, res) => {
     res.status(500).json({
       success: false,
       error: true,
-      message: "Internal Error",
+      message: 'Internal Error',
       ErrorMessage: err.message,
     });
   }
@@ -154,20 +153,20 @@ userroutes.get("/view", Checkauth, (req, res) => {
 
 //---Donated Product Display
 
-userroutes.get("/donated-products", Checkauth, async (req, res) => {
+userroutes.get('/donated-products', Checkauth, async (req, res) => {
   const donatedproducts = await products
     .aggregate([
       {
         $lookup: {
-          from: "login_tbs",
-          localField: "login_id",
-          foreignField: "_id",
-          as: "results",
+          from: 'login_tbs',
+          localField: 'login_id',
+          foreignField: '_id',
+          as: 'results',
         },
       },
       {
         $unwind: {
-          path: "$results",
+          path: '$results',
         },
       },
       {
@@ -177,45 +176,45 @@ userroutes.get("/donated-products", Checkauth, async (req, res) => {
       },
       {
         $group: {
-          _id: "$_id",
+          _id: '$_id',
           login_id: {
-            $first: "$login_id",
+            $first: '$login_id',
           },
           image: {
-            $first: "$image",
+            $first: '$image',
           },
           name: {
-            $first: "$name",
+            $first: '$name',
           },
           available_qty: {
-            $first: "$available_qty",
+            $first: '$available_qty',
           },
           description: {
-            $first: "$description",
+            $first: '$description',
           },
           category: {
-            $first: "$category",
+            $first: '$category',
           },
           sub_category: {
-            $first: "$sub_category",
+            $first: '$sub_category',
           },
           email: {
-            $first: "$email",
+            $first: '$email',
           },
           purchased_date: {
-            $first: "$purchased_date",
+            $first: '$purchased_date',
           },
           phone_number: {
-            $first: "$phone_number",
+            $first: '$phone_number',
           },
           address: {
-            $first: "$address",
+            $first: '$address',
           },
           pin_code: {
-            $first: "$pin_code",
+            $first: '$pin_code',
           },
           role: {
-            $first: "$results.role",
+            $first: '$results.role',
           },
         },
       },
@@ -224,7 +223,7 @@ userroutes.get("/donated-products", Checkauth, async (req, res) => {
       res.status(200).json({
         success: true,
         error: false,
-        message: "Single view data fetched successfully",
+        message: 'Single view data fetched successfully',
         data: data,
       });
     })
@@ -232,7 +231,7 @@ userroutes.get("/donated-products", Checkauth, async (req, res) => {
       res.status(500).json({
         success: false,
         error: true,
-        message: "Single view Data fetched Unsuccessfull",
+        message: 'Single view Data fetched Unsuccessfull',
         ErrorMessage: err.message,
       });
     });
@@ -240,7 +239,7 @@ userroutes.get("/donated-products", Checkauth, async (req, res) => {
 
 // View Editing product
 
-userroutes.get("/viewone/:id", (req, res) => {
+userroutes.get('/viewone/:id', (req, res) => {
   products
     .findOne({
       _id: req.params.id,
@@ -249,7 +248,7 @@ userroutes.get("/viewone/:id", (req, res) => {
       res.status(200).json({
         Success: true,
         Error: false,
-        Message: "Data fetched successfully",
+        Message: 'Data fetched successfully',
         data: data,
       });
     })
@@ -257,7 +256,7 @@ userroutes.get("/viewone/:id", (req, res) => {
       res.status(400).json({
         Success: false,
         Error: true,
-        Message: "Data fetched Unsuccessfull",
+        Message: 'Data fetched Unsuccessfull',
         ErrorMessage: err.message,
       });
     });
@@ -265,86 +264,71 @@ userroutes.get("/viewone/:id", (req, res) => {
 
 //---Product update
 
-userroutes.put(
-  "/edit-product/:id",
-  Checkauth,
-  upload.single("image"),
-  async (req, res) => {
-    try {
-      const olddata = await products.findOne({
+userroutes.put('/edit-product/:id', Checkauth, upload.single('image'), async (req, res) => {
+  try {
+    const olddata = await products.findOne({
+      _id: req.params.id,
+    });
+    console.log(olddata);
+    const newdata = {
+      // image: req.body.image ? req.body.image : olddata.image,
+      image: req.file.path ? req.file.path : olddata.image,
+      name: req.body.name ? req.body.name : olddata.name,
+      description: req.body.description ? req.body.description : olddata.description,
+      available_qty: req.body.available_qty ? req.body.available_qty : olddata.available_qty,
+      category: req.body.category ? req.body.category : olddata.category,
+      sub_category: req.body.sub_category ? req.body.sub_category : olddata.sub_category,
+      email: req.body.email ? req.body.email : olddata.email,
+      purchased_date: req.body.purchased_date ? req.body.purchased_date : olddata.purchased_date,
+      phone_number: req.body.phone_number ? req.body.phone_number : olddata.phone_number,
+      address: req.body.address ? req.body.address : olddata.address,
+      pin_code: req.body.pin_code ? req.body.pin_code : olddata.pin_code,
+    };
+    console.log('newdata', newdata);
+    const updatedData = await products.updateMany(
+      {
         _id: req.params.id,
-      });
-      console.log(olddata);
-      const newdata = {
-        // image: req.body.image ? req.body.image : olddata.image,
-        image: req.file.path ? req.file.path : olddata.image,
-        name: req.body.name ? req.body.name : olddata.name,
-        description: req.body.description
-          ? req.body.description
-          : olddata.description,
-        available_qty: req.body.available_qty
-          ? req.body.available_qty
-          : olddata.available_qty,
-        category: req.body.category ? req.body.category : olddata.category,
-        sub_category: req.body.sub_category
-          ? req.body.sub_category
-          : olddata.sub_category,
-        email: req.body.email ? req.body.email : olddata.email,
-        purchased_date: req.body.purchased_date
-          ? req.body.purchased_date
-          : olddata.purchased_date,
-        phone_number: req.body.phone_number
-          ? req.body.phone_number
-          : olddata.phone_number,
-        address: req.body.address ? req.body.address : olddata.address,
-        pin_code: req.body.pin_code ? req.body.pin_code : olddata.pin_code,
-      };
-      console.log("newdata", newdata);
-      const updatedData = await products.updateMany(
-        {
-          _id: req.params.id,
-        },
-        {
-          $set: newdata,
-        }
-      );
+      },
+      {
+        $set: newdata,
+      }
+    );
 
-      if (updatedData) {
-        return res.status(200).json({
-          success: true,
-          error: false,
-          message: "data updated successfully",
-          data: newdata,
-        });
-      } else
-        (err) => {
-          return res.status(400).json({
-            success: false,
-            error: true,
-            message: "Failed",
-            ErrorMessage: err.message,
-          });
-        };
-    } catch (err) {
-      res.status(500).json({
-        success: false,
-        error: true,
-        message: "Internal server error",
-        ErrorMessage: err.message,
+    if (updatedData) {
+      return res.status(200).json({
+        success: true,
+        error: false,
+        message: 'data updated successfully',
+        data: newdata,
       });
-    }
+    } else
+      (err) => {
+        return res.status(400).json({
+          success: false,
+          error: true,
+          message: 'Failed',
+          ErrorMessage: err.message,
+        });
+      };
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      error: true,
+      message: 'Internal server error',
+      ErrorMessage: err.message,
+    });
   }
-);
+});
 
 //---Product delete
 
-userroutes.delete("/delete/:id", (req, res) => {
+userroutes.delete('/delete/:id', (req, res) => {
   products
     .deleteOne({
       _id: req.params.id,
     })
     .then(() => {
-      res.send("Deleted Successfull");
+      res.send('Deleted Successfull');
     })
     .catch((err) => {
       res.send(err);
@@ -353,19 +337,19 @@ userroutes.delete("/delete/:id", (req, res) => {
 
 //---Product  Wishlist
 
-userroutes.put("/wishlist/:id", async (req, res) => {
+userroutes.put('/wishlist/:id', async (req, res) => {
   const wishlist = await products.updateOne(
     {
       _id: req.params.id,
     },
     {
       $set: {
-        wishlist: "approved",
+        wishlist: 'approved',
       },
     }
   );
   if (wishlist) {
-    return res.send("approved Successfull");
+    return res.send('approved Successfull');
   } else
     (err) => {
       return res.send(err);
@@ -374,19 +358,19 @@ userroutes.put("/wishlist/:id", async (req, res) => {
 
 //---Product  Wishlist REMOVE
 
-userroutes.put("/wishlist-remove/:id", async (req, res) => {
+userroutes.put('/wishlist-remove/:id', async (req, res) => {
   const wishlist = await products.updateOne(
     {
       _id: req.params.id,
     },
     {
       $set: {
-        wishlist: "",
+        wishlist: '',
       },
     }
   );
   if (wishlist) {
-    return res.send("Canceled Successfull");
+    return res.send('Canceled Successfull');
   } else
     (err) => {
       return res.send(err);
@@ -397,21 +381,21 @@ userroutes.put("/wishlist-remove/:id", async (req, res) => {
 
 //---Profile view
 
-userroutes.get("/profile", Checkauth, (req, res) => {
+userroutes.get('/profile', Checkauth, (req, res) => {
   registerDB
     .aggregate([
       [
         {
           $lookup: {
-            from: "login_tbs",
-            localField: "login_id",
-            foreignField: "_id",
-            as: "result",
+            from: 'login_tbs',
+            localField: 'login_id',
+            foreignField: '_id',
+            as: 'result',
           },
         },
         {
           $unwind: {
-            path: "$result",
+            path: '$result',
           },
         },
         {
@@ -421,28 +405,28 @@ userroutes.get("/profile", Checkauth, (req, res) => {
         },
         {
           $group: {
-            _id: "$_id",
+            _id: '$_id',
             login_id: {
-              $first: "$login_id",
+              $first: '$login_id',
             },
             image: {
-              $first: "$image",
+              $first: '$image',
             },
             name: {
-              $first: "$name",
+              $first: '$name',
             },
             age: {
-              $first: "$age",
+              $first: '$age',
             },
             phone_number: {
-              $first: "$phone_number",
+              $first: '$phone_number',
             },
             email: {
-              $first: "$result.email",
+              $first: '$result.email',
             },
 
             user_id: {
-              $first: "$user_id",
+              $first: '$user_id',
             },
           },
         },
@@ -453,7 +437,7 @@ userroutes.get("/profile", Checkauth, (req, res) => {
         data: data,
         success: true,
         error: false,
-        message: "Profile data fetched successfully",
+        message: 'Profile data fetched successfully',
       });
     })
     .catch((err) => {
@@ -461,131 +445,121 @@ userroutes.get("/profile", Checkauth, (req, res) => {
         success: false,
         error: true,
         ErrorMessage: err.message,
-        message: "Profile data fetched unsuccessful",
+        message: 'Profile data fetched unsuccessful',
       });
     });
 });
 
 //---User Profile update
 
-userroutes.post(
-  "/profileupdate/:id",
-  Checkauth,
-  upload.single("image"),
-  async (req, res) => {
-    try {
-      const olddata = await registerDB.findOne({
-        _id: req.params.id,
-      });
-      const userprofile = {
-        // image: req.file.path ? req.file.path : olddata.image,
-        image: req.file ? req.file.path : olddata.image,
-        name: req.body ? req.body.name : olddata.name,
-        email: req.body ? req.body.email : olddata.email,
-        age: req.body ? req.body.age : olddata.age,
-        phone_number: req.body ? req.body.phone_number : olddata.phone_number,
-      };
+userroutes.post('/profileupdate/:id', Checkauth, upload.single('image'), async (req, res) => {
+  try {
+    const olddata = await registerDB.findOne({
+      _id: req.params.id,
+    });
+    const userprofile = {
+      // image: req.file.path ? req.file.path : olddata.image,
+      image: req.file ? req.file.path : olddata.image,
+      name: req.body ? req.body.name : olddata.name,
+      email: req.body ? req.body.email : olddata.email,
+      age: req.body ? req.body.age : olddata.age,
+      phone_number: req.body ? req.body.phone_number : olddata.phone_number,
+    };
 
-      const updatedProfile = await registerDB.updateOne(
-        {
-          _id: req.params.id,
-        },
-        {
-          $set: userprofile,
-        }
-      );
-      const newemail = await LoginDB.updateOne(
-        {
-          _id: olddata.login_id,
-        },
-        {
-          $set: { email: req.body ? req.body.email : olddata.email },
-        }
-      );
-      console.log(newemail);
-      if (updatedProfile && newemail) {
-        return res.status(200).json({
-          success: true,
-          error: false,
-          message: "data updated successfully",
-          data: userprofile,
-        });
-      } else {
-        res.status(400).json({
-          success: false,
-          error: true,
-          message: "data Fetched unsuccessful",
-          ErrorMessage: err.message,
-        });
+    const updatedProfile = await registerDB.updateOne(
+      {
+        _id: req.params.id,
+      },
+      {
+        $set: userprofile,
       }
-    } catch (err) {
-      // console.log(err);
-      res.status(500).json({
+    );
+    const newemail = await LoginDB.updateOne(
+      {
+        _id: olddata.login_id,
+      },
+      {
+        $set: { email: req.body ? req.body.email : olddata.email },
+      }
+    );
+    console.log(newemail);
+    if (updatedProfile && newemail) {
+      return res.status(200).json({
+        success: true,
+        error: false,
+        message: 'data updated successfully',
+        data: userprofile,
+      });
+    } else {
+      res.status(400).json({
         success: false,
         error: true,
-        message: "Network error",
+        message: 'data Fetched unsuccessful',
         ErrorMessage: err.message,
       });
     }
+  } catch (err) {
+    // console.log(err);
+    res.status(500).json({
+      success: false,
+      error: true,
+      message: 'Network error',
+      ErrorMessage: err.message,
+    });
   }
-);
+});
 
 //----------------Cart -----------------
 
 //--- Cart Add
 
-userroutes.post(
-  "/addtocart",
-  Checkauth,
-  upload.single("image"),
-  async (req, res) => {
-    console.log(req.body._id);
-    const address = await AddressDB.find({
-      login_id: req.userData.userId,
-      category: "primary",
-    });
-    const addressId = new mongoose.Types.ObjectId(address[0]);
-    const Data = new CartDB({
-      login_id: req.userData.userId,
-      // image: req.body.image,
-      image: req.file.path,
+userroutes.post('/addtocart', Checkauth, upload.single('image'), async (req, res) => {
+  console.log(req.body._id);
+  const address = await AddressDB.find({
+    login_id: req.userData.userId,
+    category: 'primary',
+  });
+  const addressId = new mongoose.Types.ObjectId(address[0]);
+  const Data = new CartDB({
+    login_id: req.userData.userId,
+    // image: req.body.image,
+    image: req.file.path,
 
-      available_qty: req.body.available_qty,
-      cart_qty: req.body.cart_qty,
-      name: req.body.name,
-      description: req.body.description,
-      category: req.body.category,
-      sub_category: req.body.sub_category,
-      email: req.body.email,
-      purchased_date: req.body.purchased_date,
-      phone_number: req.body.phone_number,
-      address: req.body.address,
-      pin_code: req.body.pin_code,
-      product_id: req.body._id,
-      address_id: addressId,
-    });
-    Data.save()
-      .then((data) => {
-        res.status(200).json({
-          success: true,
-          error: false,
-          message: "Add to cart successfully",
-          data: data,
-        });
-      })
-      .catch((err) => {
-        res.status(400).json({
-          success: false,
-          error: true,
-          ErrorMessage: err.message,
-        });
+    available_qty: req.body.available_qty,
+    cart_qty: req.body.cart_qty,
+    name: req.body.name,
+    description: req.body.description,
+    category: req.body.category,
+    sub_category: req.body.sub_category,
+    email: req.body.email,
+    purchased_date: req.body.purchased_date,
+    phone_number: req.body.phone_number,
+    address: req.body.address,
+    pin_code: req.body.pin_code,
+    product_id: req.body._id,
+    address_id: addressId,
+  });
+  Data.save()
+    .then((data) => {
+      res.status(200).json({
+        success: true,
+        error: false,
+        message: 'Add to cart successfully',
+        data: data,
       });
-  }
-);
+    })
+    .catch((err) => {
+      res.status(400).json({
+        success: false,
+        error: true,
+        ErrorMessage: err.message,
+      });
+    });
+});
 
 // ---cart products View
 
-userroutes.get("/cartview/:id", Checkauth, async (req, res) => {
+userroutes.get('/cartview/:id', Checkauth, async (req, res) => {
   try {
     await CartDB.find({
       login_id: req.params.id,
@@ -594,7 +568,7 @@ userroutes.get("/cartview/:id", Checkauth, async (req, res) => {
         res.status(200).json({
           success: true,
           error: false,
-          message: "Cart view Successful",
+          message: 'Cart view Successful',
           data: data,
         });
       })
@@ -602,7 +576,7 @@ userroutes.get("/cartview/:id", Checkauth, async (req, res) => {
         res.status(400).json({
           success: false,
           error: true,
-          message: "data fetched failed",
+          message: 'data fetched failed',
           ErrorMessage: err.message,
         });
       });
@@ -611,14 +585,14 @@ userroutes.get("/cartview/:id", Checkauth, async (req, res) => {
       success: false,
       error: true,
       errorMessage: err.message,
-      message: "Something wrong",
+      message: 'Something wrong',
     });
   }
 });
 
 //--- Cart Delete
 
-userroutes.get("/cartdelete/:id", Checkauth, async (req, res) => {
+userroutes.get('/cartdelete/:id', Checkauth, async (req, res) => {
   await CartDB.deleteOne({
     _id: req.params.id,
     login_id: req.userData.userId,
@@ -646,7 +620,7 @@ userroutes.get("/cartdelete/:id", Checkauth, async (req, res) => {
 
 // ---Cart increment
 
-userroutes.get("/cartincrement/:id", Checkauth, async (req, res) => {
+userroutes.get('/cartincrement/:id', Checkauth, async (req, res) => {
   try {
     const userId = req.userData.userId;
     CartDB.findOne({
@@ -658,7 +632,7 @@ userroutes.get("/cartincrement/:id", Checkauth, async (req, res) => {
       var available_qty = data.available_qty;
       if (available_qty > qty) {
         var incre_qty = qty + 1;
-        console.log("Increment:", incre_qty);
+        console.log('Increment:', incre_qty);
 
         const update_qty = await CartDB.updateOne(
           { login_id: userId, _id: req.params.id },
@@ -675,7 +649,7 @@ userroutes.get("/cartincrement/:id", Checkauth, async (req, res) => {
               error: false,
               data: datas,
               incre_qty: incre_qty,
-              message: "cart increment successful",
+              message: 'cart increment successful',
             });
           });
         }
@@ -683,7 +657,7 @@ userroutes.get("/cartincrement/:id", Checkauth, async (req, res) => {
         return res.status(400).json({
           success: false,
           error: true,
-          message: "You added maximum quantity",
+          message: 'You added maximum quantity',
         });
       }
     });
@@ -692,14 +666,14 @@ userroutes.get("/cartincrement/:id", Checkauth, async (req, res) => {
       success: false,
       error: true,
       ErrorMessage: err.message,
-      message: "internal server Error",
+      message: 'internal server Error',
     });
   }
 });
 
 //--- Cart decrement
 
-userroutes.get("/cartdecrement/:id", Checkauth, async (req, res) => {
+userroutes.get('/cartdecrement/:id', Checkauth, async (req, res) => {
   try {
     const userId = req.userData.userId;
     CartDB.findOne({
@@ -711,7 +685,7 @@ userroutes.get("/cartdecrement/:id", Checkauth, async (req, res) => {
       var availablle_qty = data.available_qty;
       if (qty > 1) {
         var decre_qty = qty - 1;
-        console.log("decrement :", decre_qty);
+        console.log('decrement :', decre_qty);
 
         const update_qty = await CartDB.updateOne(
           { login_id: userId, _id: req.params.id },
@@ -728,7 +702,7 @@ userroutes.get("/cartdecrement/:id", Checkauth, async (req, res) => {
               error: false,
               data: data,
               decre_qty: decre_qty,
-              message: "cart decrement successful",
+              message: 'cart decrement successful',
             });
           });
         }
@@ -737,7 +711,7 @@ userroutes.get("/cartdecrement/:id", Checkauth, async (req, res) => {
           success: true,
           error: false,
           data: data,
-          message: "Yoou removed minimum quantity",
+          message: 'Yoou removed minimum quantity',
         });
       }
     });
@@ -746,7 +720,7 @@ userroutes.get("/cartdecrement/:id", Checkauth, async (req, res) => {
       success: false,
       error: true,
       ErrorMessage: err.message,
-      message: "internal server Error",
+      message: 'internal server Error',
     });
   }
 });
@@ -755,59 +729,59 @@ userroutes.get("/cartdecrement/:id", Checkauth, async (req, res) => {
 
 //profile with address
 
-userroutes.get("/profile-address", Checkauth, async (req, res) => {
+userroutes.get('/profile-address', Checkauth, async (req, res) => {
   const primary = await AddressDB.findOne({
     login_id: req.userData.userId,
-    category: "primary",
+    category: 'primary',
   });
   if (primary) {
     await AddressDB.aggregate([
       {
         $lookup: {
-          from: "login_tbs",
-          localField: "login_id",
-          foreignField: "_id",
-          as: "results",
+          from: 'login_tbs',
+          localField: 'login_id',
+          foreignField: '_id',
+          as: 'results',
         },
       },
       {
         $unwind: {
-          path: "$results",
+          path: '$results',
         },
       },
       {
         $match: {
           login_id: new mongoose.Types.ObjectId(req.userData.userId),
-          category: "primary",
+          category: 'primary',
         },
       },
 
       {
         $group: {
-          _id: "$_id",
+          _id: '$_id',
           name: {
-            $first: "$name",
+            $first: '$name',
           },
           state: {
-            $first: "$state",
+            $first: '$state',
           },
           district: {
-            $first: "$district",
+            $first: '$district',
           },
           address: {
-            $first: "$address",
+            $first: '$address',
           },
           address_type: {
-            $first: "$address_type",
+            $first: '$address_type',
           },
           pin_code: {
-            $first: "$pin_code",
+            $first: '$pin_code',
           },
           alternate_phone: {
-            $first: "$alternate_phone",
+            $first: '$alternate_phone',
           },
           email: {
-            $first: "$results.email",
+            $first: '$results.email',
           },
         },
       },
@@ -817,7 +791,7 @@ userroutes.get("/profile-address", Checkauth, async (req, res) => {
           data: data,
           success: true,
           error: false,
-          message: "Profile data fetched successfully",
+          message: 'Profile data fetched successfully',
         });
       })
       .catch((err) => {
@@ -825,44 +799,44 @@ userroutes.get("/profile-address", Checkauth, async (req, res) => {
           success: false,
           error: true,
           ErrorMessage: err.message,
-          message: "Profile data fetched unsuccessful",
+          message: 'Profile data fetched unsuccessful',
         });
       });
   } else {
     res.status(500).json({
       success: false,
       error: true,
-      message: "No data",
+      message: 'No data',
     });
   }
 });
 
 //Order Place address
 
-userroutes.get("/orderplace-address", Checkauth, async (req, res) => {
+userroutes.get('/orderplace-address', Checkauth, async (req, res) => {
   const primary = await AddressDB.findOne({
     login_id: req.userData.userId,
-    category: "primary",
+    category: 'primary',
   });
   if (primary) {
     return res.status(200).json({
       data: primary,
       success: true,
       error: false,
-      message: "Profile data fetched successfully",
+      message: 'Profile data fetched successfully',
     });
   } else {
     res.status(500).json({
       success: false,
       error: true,
-      message: "No data",
+      message: 'No data',
     });
   }
 });
 
 //---Add Address
 
-userroutes.post("/add-address", Checkauth, async (req, res) => {
+userroutes.post('/add-address', Checkauth, async (req, res) => {
   try {
     const temp = await AddressDB.updateMany(
       {
@@ -870,7 +844,7 @@ userroutes.post("/add-address", Checkauth, async (req, res) => {
       },
       {
         $set: {
-          category: "",
+          category: '',
         },
       }
     );
@@ -885,8 +859,8 @@ userroutes.post("/add-address", Checkauth, async (req, res) => {
       pin_code: req.body.pin_code,
       alternate_phone: req.body.alternate_phone,
       address_type: req.body.address_type,
-      category: "primary",
-      status: "active",
+      category: 'primary',
+      status: 'active',
     });
 
     data
@@ -897,7 +871,7 @@ userroutes.post("/add-address", Checkauth, async (req, res) => {
           success: true,
           error: false,
           data: data,
-          message: "Address successfully  Added",
+          message: 'Address successfully  Added',
         });
       })
       .catch((err) => {
@@ -905,7 +879,7 @@ userroutes.post("/add-address", Checkauth, async (req, res) => {
           success: false,
           error: true,
           ErrorMessage: err.message,
-          message: "Network error",
+          message: 'Network error',
         });
       });
   } catch (err) {
@@ -913,18 +887,18 @@ userroutes.post("/add-address", Checkauth, async (req, res) => {
       success: false,
       error: true,
       ErrorMessage: err.message,
-      message: "Internal Server error",
+      message: 'Internal Server error',
     });
   }
 });
 
 //--- View All Address
 
-userroutes.get("/view-address", Checkauth, async (req, res) => {
+userroutes.get('/view-address', Checkauth, async (req, res) => {
   try {
     const data = await AddressDB.find({
       login_id: req.userData.userId,
-      status: "active",
+      status: 'active',
     });
 
     if (data) {
@@ -932,7 +906,7 @@ userroutes.get("/view-address", Checkauth, async (req, res) => {
         success: true,
         error: false,
         data: data,
-        message: " Address successfully displayed",
+        message: ' Address successfully displayed',
       });
     } else
       (err) => {
@@ -940,7 +914,7 @@ userroutes.get("/view-address", Checkauth, async (req, res) => {
           success: false,
           error: true,
           ErrorMessage: err.message,
-          message: "Network error",
+          message: 'Network error',
         });
       };
   } catch (err) {
@@ -948,14 +922,14 @@ userroutes.get("/view-address", Checkauth, async (req, res) => {
       success: false,
       error: true,
       ErrorMessage: err.message,
-      message: "Internal Server error",
+      message: 'Internal Server error',
     });
   }
 });
 
 //---Single View for edit Address
 
-userroutes.get("/singleview-address/:id", Checkauth, async (req, res) => {
+userroutes.get('/singleview-address/:id', Checkauth, async (req, res) => {
   try {
     const data = await AddressDB.find({
       login_id: req.userData.userId,
@@ -967,7 +941,7 @@ userroutes.get("/singleview-address/:id", Checkauth, async (req, res) => {
         success: true,
         error: false,
         data: data,
-        message: " Address successfully displayed",
+        message: ' Address successfully displayed',
       });
     } else
       (err) => {
@@ -975,7 +949,7 @@ userroutes.get("/singleview-address/:id", Checkauth, async (req, res) => {
           success: false,
           error: true,
           ErrorMessage: err.message,
-          message: "Network error",
+          message: 'Network error',
         });
       };
   } catch (err) {
@@ -983,14 +957,14 @@ userroutes.get("/singleview-address/:id", Checkauth, async (req, res) => {
       success: false,
       error: true,
       ErrorMessage: err.message,
-      message: "Internal Server error",
+      message: 'Internal Server error',
     });
   }
 });
 
 //--- Delete Address
 
-userroutes.get("/delete-address/:id", Checkauth, async (req, res) => {
+userroutes.get('/delete-address/:id', Checkauth, async (req, res) => {
   try {
     const data = await AddressDB.updateMany(
       {
@@ -999,7 +973,7 @@ userroutes.get("/delete-address/:id", Checkauth, async (req, res) => {
       },
       {
         $set: {
-          status: "deleted",
+          status: 'deleted',
         },
       }
     );
@@ -1009,7 +983,7 @@ userroutes.get("/delete-address/:id", Checkauth, async (req, res) => {
         success: true,
         error: false,
         data: data,
-        message: " Address successfully Deleted",
+        message: ' Address successfully Deleted',
       });
     } else
       (err) => {
@@ -1017,7 +991,7 @@ userroutes.get("/delete-address/:id", Checkauth, async (req, res) => {
           success: false,
           error: true,
           ErrorMessage: err.message,
-          message: "Network error",
+          message: 'Network error',
         });
       };
   } catch (err) {
@@ -1025,14 +999,14 @@ userroutes.get("/delete-address/:id", Checkauth, async (req, res) => {
       success: false,
       error: true,
       ErrorMessage: err.message,
-      message: "Internal Server error",
+      message: 'Internal Server error',
     });
   }
 });
 
 //--- Update Address
 
-userroutes.put("/update-address/:id", Checkauth, async (req, res) => {
+userroutes.put('/update-address/:id', Checkauth, async (req, res) => {
   try {
     const oldaddress = await AddressDB.find({
       login_id: req.userData.userId,
@@ -1049,9 +1023,7 @@ userroutes.put("/update-address/:id", Checkauth, async (req, res) => {
       alternate_phone: req.body.alternate_phone
         ? req.body.alternate_phone
         : oldaddress.alternate_phone,
-      address_type: req.body.address_type
-        ? req.body.address_type
-        : oldaddress.address_type,
+      address_type: req.body.address_type ? req.body.address_type : oldaddress.address_type,
     };
 
     const updated_address = await AddressDB.updateMany(
@@ -1069,7 +1041,7 @@ userroutes.put("/update-address/:id", Checkauth, async (req, res) => {
         success: true,
         error: false,
         data: updated_address,
-        message: " Address successfully displayed",
+        message: ' Address successfully displayed',
       });
     } else
       (err) => {
@@ -1077,7 +1049,7 @@ userroutes.put("/update-address/:id", Checkauth, async (req, res) => {
           success: false,
           error: true,
           ErrorMessage: err.message,
-          message: "Network error",
+          message: 'Network error',
         });
       };
   } catch (err) {
@@ -1085,14 +1057,14 @@ userroutes.put("/update-address/:id", Checkauth, async (req, res) => {
       success: false,
       error: true,
       ErrorMessage: err.message,
-      message: "Internal Server error",
+      message: 'Internal Server error',
     });
   }
 });
 
 //--- Set address As Primary
 
-userroutes.put("/primary-address/:id", Checkauth, async (req, res) => {
+userroutes.put('/primary-address/:id', Checkauth, async (req, res) => {
   try {
     const temp = await AddressDB.updateMany(
       {
@@ -1100,7 +1072,7 @@ userroutes.put("/primary-address/:id", Checkauth, async (req, res) => {
       },
       {
         $set: {
-          category: "",
+          category: '',
         },
       }
     );
@@ -1111,7 +1083,7 @@ userroutes.put("/primary-address/:id", Checkauth, async (req, res) => {
       },
       {
         $set: {
-          category: "primary",
+          category: 'primary',
         },
       }
     );
@@ -1121,7 +1093,7 @@ userroutes.put("/primary-address/:id", Checkauth, async (req, res) => {
         success: true,
         error: false,
         data: data,
-        message: " Primary address Successful",
+        message: ' Primary address Successful',
       });
     } else
       (err) => {
@@ -1129,7 +1101,7 @@ userroutes.put("/primary-address/:id", Checkauth, async (req, res) => {
           success: false,
           error: true,
           ErrorMessage: err.message,
-          message: "Network error",
+          message: 'Network error',
         });
       };
   } catch (err) {
@@ -1137,18 +1109,18 @@ userroutes.put("/primary-address/:id", Checkauth, async (req, res) => {
       success: false,
       error: true,
       ErrorMessage: err.message,
-      message: "Internal Server error",
+      message: 'Internal Server error',
     });
   }
 });
 
 //--- View Primary Address
 
-userroutes.get("/view-primary-address", Checkauth, async (req, res) => {
+userroutes.get('/view-primary-address', Checkauth, async (req, res) => {
   try {
     const data = await AddressDB.find({
       login_id: req.userData.userId,
-      address_type: "primary",
+      address_type: 'primary',
     });
 
     if (data) {
@@ -1156,7 +1128,7 @@ userroutes.get("/view-primary-address", Checkauth, async (req, res) => {
         success: true,
         error: false,
         data: data,
-        message: "primary Address successfully displayed",
+        message: 'primary Address successfully displayed',
       });
     } else
       (err) => {
@@ -1164,7 +1136,7 @@ userroutes.get("/view-primary-address", Checkauth, async (req, res) => {
           success: false,
           error: true,
           ErrorMessage: err.message,
-          message: "Network error",
+          message: 'Network error',
         });
       };
   } catch (err) {
@@ -1172,7 +1144,7 @@ userroutes.get("/view-primary-address", Checkauth, async (req, res) => {
       success: false,
       error: true,
       ErrorMessage: err.message,
-      message: "Internal Server error",
+      message: 'Internal Server error',
     });
   }
 });
@@ -1181,11 +1153,11 @@ userroutes.get("/view-primary-address", Checkauth, async (req, res) => {
 
 //--- Order Place
 
-userroutes.post("/orderplace/:id", Checkauth, async (req, res) => {
+userroutes.post('/orderplace/:id', Checkauth, async (req, res) => {
   try {
     const address = await AddressDB.find({
       login_id: req.params.id,
-      category: "primary",
+      category: 'primary',
     });
     const addressId = new mongoose.Types.ObjectId(address[0]);
 
@@ -1197,7 +1169,7 @@ userroutes.post("/orderplace/:id", Checkauth, async (req, res) => {
       var cart_qty = i.cart_qty;
       var addressID = i.address_id;
 
-      console.log("test");
+      console.log('test');
       console.log(_id, product_id, available_qty, cart_qty, addressID);
 
       var updated_product_qty = await products.updateMany(
@@ -1230,16 +1202,11 @@ userroutes.post("/orderplace/:id", Checkauth, async (req, res) => {
     const deletedcart = await CartDB.deleteMany({
       login_id: req.params.id,
     });
-    if (
-      updated_product_qty &&
-      updated_address &&
-      orderDB_newdata &&
-      deletedcart
-    ) {
+    if (updated_product_qty && updated_address && orderDB_newdata && deletedcart) {
       return res.status(200).json({
         success: true,
         error: false,
-        message: "Updated Successful",
+        message: 'Updated Successful',
         data: updated_product_qty,
       });
     } else
@@ -1247,7 +1214,7 @@ userroutes.post("/orderplace/:id", Checkauth, async (req, res) => {
         return res.status(400).json({
           success: false,
           error: true,
-          message: "Order failed",
+          message: 'Order failed',
           ErrorMessage: err.message,
         });
       };
@@ -1255,7 +1222,7 @@ userroutes.post("/orderplace/:id", Checkauth, async (req, res) => {
     return res.status(500).json({
       success: false,
       error: true,
-      message: "Internal Server Error",
+      message: 'Internal Server Error',
       ErrorMessage: err.message,
     });
   }
@@ -1263,7 +1230,7 @@ userroutes.post("/orderplace/:id", Checkauth, async (req, res) => {
 
 //---Order Summary
 
-userroutes.get("/ordersummary/:id", Checkauth, (req, res) => {
+userroutes.get('/ordersummary/:id', Checkauth, (req, res) => {
   OrdersDB.find({
     login_id: req.params.id,
   })
@@ -1272,7 +1239,7 @@ userroutes.get("/ordersummary/:id", Checkauth, (req, res) => {
         success: true,
         error: false,
         data: data,
-        message: "OrderSummary successfully displayed",
+        message: 'OrderSummary successfully displayed',
       });
     })
     .catch((err) => {
@@ -1280,28 +1247,28 @@ userroutes.get("/ordersummary/:id", Checkauth, (req, res) => {
         success: false,
         error: true,
         ErrorMessage: err.message,
-        message: "Network error",
+        message: 'Network error',
       });
     });
 });
 
 // ----Display address details with Orders
 
-userroutes.get("/view-details/:id", Checkauth, async (req, res) => {
+userroutes.get('/view-details/:id', Checkauth, async (req, res) => {
   try {
     // console.log(req.params.id);
     const viewdetails = await OrdersDB.aggregate([
       {
         $lookup: {
-          from: "address_tbs",
-          localField: "address_id",
-          foreignField: "_id",
-          as: "results",
+          from: 'address_tbs',
+          localField: 'address_id',
+          foreignField: '_id',
+          as: 'results',
         },
       },
       {
         $unwind: {
-          path: "$results",
+          path: '$results',
         },
       },
       {
@@ -1311,54 +1278,54 @@ userroutes.get("/view-details/:id", Checkauth, async (req, res) => {
       },
       {
         $group: {
-          _id: "$_id",
+          _id: '$_id',
           login_id: {
-            $first: "$login_id",
+            $first: '$login_id',
           },
           volunteerdetails: {
-            $first: "$volunteerdetails",
+            $first: '$volunteerdetails',
           },
           product_name: {
-            $first: "$name",
+            $first: '$name',
           },
           description: {
-            $first: "$description",
+            $first: '$description',
           },
           cart_qty: {
-            $first: "$cart_qty",
+            $first: '$cart_qty',
           },
           category: {
-            $first: "$category",
+            $first: '$category',
           },
           sub_category: {
-            $first: "$sub_category",
+            $first: '$sub_category',
           },
           orderstatus: {
-            $first: "$orderstatus",
+            $first: '$orderstatus',
           },
           name: {
-            $first: "$results.name",
+            $first: '$results.name',
           },
           email: {
-            $first: "$results.email",
+            $first: '$results.email',
           },
           state: {
-            $first: "$results.state",
+            $first: '$results.state',
           },
           district: {
-            $first: "$results.district",
+            $first: '$results.district',
           },
           address: {
-            $first: "$results.address",
+            $first: '$results.address',
           },
           pin_code: {
-            $first: "$results.pin_code",
+            $first: '$results.pin_code',
           },
           alternate_phone: {
-            $first: "$results.alternate_phone",
+            $first: '$results.alternate_phone',
           },
           address_type: {
-            $first: "$results.address_type",
+            $first: '$results.address_type',
           },
         },
       },
@@ -1368,14 +1335,14 @@ userroutes.get("/view-details/:id", Checkauth, async (req, res) => {
       res.status(200).json({
         success: true,
         error: false,
-        message: "Details displayed successful",
+        message: 'Details displayed successful',
         data: viewdetails,
       });
     } else {
       res.status(400).json({
         success: false,
         error: true,
-        message: "Failed",
+        message: 'Failed',
         ErrorMessage: err.message,
       });
     }
@@ -1383,7 +1350,7 @@ userroutes.get("/view-details/:id", Checkauth, async (req, res) => {
     res.status(500).json({
       success: false,
       error: true,
-      message: "Network failed",
+      message: 'Network failed',
       ErrorMessage: err.message,
     });
   }
@@ -1391,7 +1358,7 @@ userroutes.get("/view-details/:id", Checkauth, async (req, res) => {
 
 //---Financial Donation
 
-userroutes.post("/donation", Checkauth, (req, res) => {
+userroutes.post('/donation', Checkauth, (req, res) => {
   try {
     const Data = new DonationDB({
       name: req.body.name,
@@ -1404,7 +1371,7 @@ userroutes.post("/donation", Checkauth, (req, res) => {
         res.status(200).json({
           success: true,
           error: false,
-          message: "Donation successfull",
+          message: 'Donation successfull',
           data: data,
         });
       })
@@ -1412,7 +1379,7 @@ userroutes.post("/donation", Checkauth, (req, res) => {
         res.status(400).json({
           success: false,
           error: true,
-          message: "Donated failed",
+          message: 'Donated failed',
           ErrorMessage: err.message,
         });
       });
@@ -1420,7 +1387,7 @@ userroutes.post("/donation", Checkauth, (req, res) => {
     res.status(500).json({
       success: false,
       error: true,
-      message: "Internal Error",
+      message: 'Internal Error',
       ErrorMessage: err.message,
     });
   }

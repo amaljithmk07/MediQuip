@@ -1,14 +1,13 @@
-"use client";
-import React, { useState } from "react";
+'use client';
+import React, { useState } from 'react';
 
 import { useRouter as useNavigate } from 'next/navigation';
 import Link from 'next/link';
 
-
-import { useEffect } from "react";
-import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import Base_URL from "../Constant/constant";
+import { useEffect } from 'react';
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import Base_URL from '../Constant/constant';
 
 const Volunteerregister = () => {
   const navigate = useNavigate();
@@ -25,32 +24,30 @@ const Volunteerregister = () => {
       .then((data) => {
         console.log(data);
         toast.success('Register Successful', {
-          position: "top-center",
+          position: 'top-center',
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: 'colored',
         });
         setTimeout(() => {
-          navigate.push("/login");
-          
+          navigate.push('/login');
         }, 2000);
-
       })
       .catch((err) => {
         console.log(err);
         toast.error(err.response.data.message, {
-          position: "top-center",
+          position: 'top-center',
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: 'colored',
         });
       });
   };
@@ -119,7 +116,7 @@ const Volunteerregister = () => {
               </form>
               <h4 className="vol-h4">
                 Already have an account?
-                <Link href={"/login"} id="vol-anchor-reg">
+                <Link href={'/login'} id="vol-anchor-reg">
                   Login
                 </Link>
               </h4>

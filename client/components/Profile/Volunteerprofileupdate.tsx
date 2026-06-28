@@ -1,26 +1,25 @@
-"use client";
-import React, { useEffect, useState } from "react";
+'use client';
+import React, { useEffect, useState } from 'react';
 
-import toast, { Toaster } from "react-hot-toast";
+import toast, { Toaster } from 'react-hot-toast';
 import { useRouter as useNavigate } from 'next/navigation';
 import Link from 'next/link';
 
-
-import axios from "axios";
-import Base_URL from "../Constant/constant";
+import axios from 'axios';
+import Base_URL from '../Constant/constant';
 
 const Volunteerprofileupdate = () => {
   const navigate = useNavigate();
-  const token = (typeof window !== 'undefined' ? sessionStorage.getItem("Token") : null);
-  const role = (typeof window !== 'undefined' ? sessionStorage.getItem("Role") : null);
+  const token = typeof window !== 'undefined' ? sessionStorage.getItem('Token') : null;
+  const role = typeof window !== 'undefined' ? sessionStorage.getItem('Role') : null;
   const [profile, setProfile] = useState([
     {
-      image: "",
-      name: "",
-      age: "",
-      qualification: "",
-      email: "",
-      phone_number: "",
+      image: '',
+      name: '',
+      age: '',
+      qualification: '',
+      email: '',
+      phone_number: '',
     },
   ]);
   useEffect(() => {
@@ -38,12 +37,12 @@ const Volunteerprofileupdate = () => {
       .catch((err) => {
         console.log(err);
         if (err.response.status == 401) {
-          toast.error("Session Time Out", {
-            position: "top-center",
+          toast.error('Session Time Out', {
+            position: 'top-center',
           });
           setTimeout(() => {
             sessionStorage.clear();
-            navigate.push("/login");
+            navigate.push('/login');
           }, 2000);
         }
       });
@@ -65,12 +64,12 @@ const Volunteerprofileupdate = () => {
     // e.preventDefault();
     console.log(id);
     var formDetails = new FormData();
-    formDetails.append("image", profile.image);
-    formDetails.append("name", profile.name);
-    formDetails.append("age", profile.age);
-    formDetails.append("qualification", profile.qualification);
-    formDetails.append("phone_number", profile.phone_number);
-    formDetails.append("email", profile.email);
+    formDetails.append('image', profile.image);
+    formDetails.append('name', profile.name);
+    formDetails.append('age', profile.age);
+    formDetails.append('qualification', profile.qualification);
+    formDetails.append('phone_number', profile.phone_number);
+    formDetails.append('email', profile.email);
     axios
       .post(
         // `http://localhost:2222/api/volunteer/profileupdate/${id}`,
@@ -84,11 +83,11 @@ const Volunteerprofileupdate = () => {
       )
 
       .then((data) => {
-        navigate.push("/profile");
+        navigate.push('/profile');
         // console.log(" item", data);
       })
       .catch((err) => {
-        console.log("err:", err);
+        console.log('err:', err);
       });
     console.log(profile);
   };
@@ -98,11 +97,7 @@ const Volunteerprofileupdate = () => {
       <Toaster />
       <div className="vol-profile-home-body">
         <div className="vol-profile-home-sub-body">
-          <form
-            action=""
-            className="vol-profile-home-sub-body-form"
-            encType="multipart/form-data"
-          >
+          <form action="" className="vol-profile-home-sub-body-form" encType="multipart/form-data">
             <div className="vol-profile-home-content">
               <div className="vol-profile-home-image">
                 <input

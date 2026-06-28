@@ -1,8 +1,8 @@
-"use client";
-import React from "react";
-import { usePathname } from "next/navigation";
-import { Search, Bell, Settings } from "lucide-react";
-import { Input } from "../ui/Input";
+'use client';
+import React from 'react';
+import { usePathname } from 'next/navigation';
+import { Search, Bell, Settings } from 'lucide-react';
+import { Input } from '../ui/Input';
 
 const TopHeader = () => {
   const pathname = usePathname();
@@ -11,12 +11,13 @@ const TopHeader = () => {
   const formatPathname = () => {
     if (pathname === '/') return 'Dashboard';
     const parts = pathname.split('/').filter(Boolean);
-    return parts.map(part => part.charAt(0).toUpperCase() + part.slice(1).replace('-', ' ')).join(' / ');
+    return parts
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1).replace('-', ' '))
+      .join(' / ');
   };
 
   return (
     <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 sticky top-0 z-30">
-      
       {/* Breadcrumbs */}
       <div>
         <h2 className="text-lg font-bold text-slate-800 font-sans tracking-tight">
@@ -28,9 +29,9 @@ const TopHeader = () => {
       <div className="flex items-center gap-6">
         <div className="relative hidden md:block w-64">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-          <Input 
-            type="text" 
-            placeholder="Search..." 
+          <Input
+            type="text"
+            placeholder="Search..."
             className="pl-9 h-9 bg-slate-50 border-slate-200 text-sm focus:bg-white"
           />
         </div>
@@ -45,7 +46,6 @@ const TopHeader = () => {
           </button>
         </div>
       </div>
-
     </header>
   );
 };

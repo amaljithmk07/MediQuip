@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema; //schema definition
 
 const orderschema = new mongoose.Schema({
@@ -7,7 +7,7 @@ const orderschema = new mongoose.Schema({
   },
   login_id: {
     type: Schema.Types.ObjectId,
-    ref: "login_tb",
+    ref: 'login_tb',
     required: true,
   },
   available_qty: {
@@ -56,7 +56,7 @@ const orderschema = new mongoose.Schema({
     required: true,
   },
   orderstatus: {
-    default: "pending",
+    default: 'pending',
     type: String,
   },
 
@@ -66,16 +66,16 @@ const orderschema = new mongoose.Schema({
   },
   address_id: {
     type: Schema.Types.ObjectId,
-    ref: "cart Details",
+    ref: 'cart Details',
     // default: "",
     require: true,
   },
   cart_id: {
     type: Schema.Types.ObjectId,
-    ref: "Cart Details",
+    ref: 'Cart Details',
     // default: "",
     require: true,
   },
 });
-const data = mongoose.model("orders_tb", orderschema);
+const data = mongoose.model('orders_tb', orderschema);
 module.exports = data;

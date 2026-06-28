@@ -1,17 +1,17 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema; //schema definition
 
 const volunteerschema = new mongoose.Schema({
-  login_id: { type: Schema.Types.ObjectId, ref: "login_tb", required: true },
+  login_id: { type: Schema.Types.ObjectId, ref: 'login_tb', required: true },
 
   image: {
     type: String,
     require: true,
-    default: "",
+    default: '',
   },
   status: {
     type: String,
-    default: "Pending",
+    default: 'Pending',
   },
   name: {
     type: String,
@@ -35,5 +35,5 @@ const volunteerschema = new mongoose.Schema({
     required: true,
   },
 });
-var volunteerData = mongoose.model("volunteer_tb", volunteerschema);
+var volunteerData = mongoose.model('volunteer_tb', volunteerschema);
 module.exports = volunteerData;

@@ -1,7 +1,7 @@
-const { OAuth2Client } = require("google-auth-library");
-const loginSchema = require("../models/loginschema");
-const register = require("../models/registerschema");
-const { default: mongoose } = require("mongoose");
+const { OAuth2Client } = require('google-auth-library');
+const loginSchema = require('../models/loginschema');
+const register = require('../models/registerschema');
+const { default: mongoose } = require('mongoose');
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -17,7 +17,7 @@ class GoogleService {
       });
       return ticket.getPayload();
     } catch (error) {
-      throw new Error("Invalid Google token");
+      throw new Error('Invalid Google token');
     }
   }
 
@@ -31,7 +31,7 @@ class GoogleService {
     const { sub: googleId, email, email_verified, name } = payload;
 
     if (!email_verified) {
-      throw new Error("Google email is not verified");
+      throw new Error('Google email is not verified');
     }
 
     const loweremail = email.toLowerCase();
@@ -41,7 +41,7 @@ class GoogleService {
       // Identity Merging
       if (!user.googleId) {
         user.googleId = googleId;
-        user.authProvider = "google";
+        user.authProvider = 'google';
         await user.save();
       }
     } else {
@@ -50,7 +50,7 @@ class GoogleService {
         email: loweremail,
         role: 2,
         googleId,
-        authProvider: "google"
+        authProvider: 'google',
       });
       await user.save();
 

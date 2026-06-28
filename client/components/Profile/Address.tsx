@@ -1,25 +1,24 @@
-"use client";
-import React, { useEffect, useState } from "react";
+'use client';
+import React, { useEffect, useState } from 'react';
 
-import axios from "axios";
+import axios from 'axios';
 
-import toast, { Toaster } from "react-hot-toast";
+import toast, { Toaster } from 'react-hot-toast';
 import { useRouter as useNavigate } from 'next/navigation';
 import Link from 'next/link';
 
-
-import Base_URL from "../Constant/constant";
+import Base_URL from '../Constant/constant';
 
 const Address = () => {
   const navigate = useNavigate();
 
-  const token = (typeof window !== 'undefined' ? sessionStorage.getItem("Token") : null);
+  const token = typeof window !== 'undefined' ? sessionStorage.getItem('Token') : null;
   const [savedaddress, setSavedaddress] = useState([{}]);
 
   const [address, setAddress] = useState({});
 
-  const cartitem = (typeof window !== 'undefined' ? sessionStorage.getItem("item") : null);
-  console.log("cartitem", cartitem);
+  const cartitem = typeof window !== 'undefined' ? sessionStorage.getItem('item') : null;
+  console.log('cartitem', cartitem);
 
   //Address Add
 
@@ -56,7 +55,7 @@ const Address = () => {
       })
       .then((data) => {
         // const DATA = data.data.data;
-        console.log("DATA", data.data.data);
+        console.log('DATA', data.data.data);
         // const activeadress = data.map((data) => {
         //   return (data.status = "active");
         // });
@@ -65,13 +64,13 @@ const Address = () => {
       .catch((err) => {
         // console.log(err);
         if (err.response.status == 401) {
-          toast.error("Session Time Out", {
-            position: "top-center",
+          toast.error('Session Time Out', {
+            position: 'top-center',
           });
           setTimeout(() => {
             sessionStorage.clear();
 
-            navigate.push("/login");
+            navigate.push('/login');
           }, 2000);
         }
       });
@@ -80,7 +79,7 @@ const Address = () => {
   // Active Address List
 
   const addressActive = savedaddress.filter((data) => {
-    return data.status == "active";
+    return data.status == 'active';
   });
 
   // set Primary Address
@@ -100,13 +99,13 @@ const Address = () => {
       )
       .then((data) => {
         const nulladdress = savedaddress.filter((data) => {
-          data.category = "";
+          data.category = '';
           return data;
         });
         const updatedaddress = nulladdress.filter((data) => {
           console.log(data);
           if (data._id == id) {
-            data.category = "primary";
+            data.category = 'primary';
           }
           console.log(data);
           return data;
@@ -123,8 +122,8 @@ const Address = () => {
   // Change Address On Order Place
 
   const OrderplaceAddressChange = (id) => {
-    sessionStorage.removeItem("item");
-    navigate.push("/user/order-place");
+    sessionStorage.removeItem('item');
+    navigate.push('/user/order-place');
   };
 
   // Delete Address;
@@ -141,7 +140,7 @@ const Address = () => {
         console.log(data);
         const filter = savedaddress.map((data) => {
           if (data._id == id) {
-            data.status = "deleted";
+            data.status = 'deleted';
           }
           return data;
         });
@@ -170,7 +169,7 @@ const Address = () => {
               {addressActive.map((details) => (
                 <div className="saved-address-sec" key={details._id}>
                   <div className="radio-btn-sec">
-                    {details.category == "primary" ? (
+                    {details.category == 'primary' ? (
                       <input
                         type="radio"
                         id="primary"
@@ -220,19 +219,13 @@ const Address = () => {
                 </div>
               ))}
               {cartitem ? (
-                <button
-                  className="saved-address-btn"
-                  onClick={OrderplaceAddressChange}
-                >
+                <button className="saved-address-btn" onClick={OrderplaceAddressChange}>
                   Return to Order
                 </button>
               ) : (
                 <>
                   {savedaddress.length !== 0 ? (
-                    <Link
-                      className="saved-address-btn"
-                      href={"/userprofileupdate"}
-                    >
+                    <Link className="saved-address-btn" href={'/userprofileupdate'}>
                       Return to Profile
                     </Link>
                   ) : (
@@ -251,7 +244,7 @@ const Address = () => {
               <div className="add-address-sec">
                 <div className="add-address-sec-left">
                   <div className="add-address-input-sec">
-                    Name:{" "}
+                    Name:{' '}
                     <input
                       type="text"
                       name="name"
@@ -260,7 +253,7 @@ const Address = () => {
                     />
                   </div>
                   <div className="add-address-input-sec">
-                    state:{" "}
+                    state:{' '}
                     <input
                       type="text"
                       name="state"
@@ -269,7 +262,7 @@ const Address = () => {
                     />
                   </div>
                   <div className="add-address-input-sec">
-                    district:{" "}
+                    district:{' '}
                     <input
                       type="text"
                       className="add-address-input"
@@ -278,7 +271,7 @@ const Address = () => {
                     />
                   </div>
                   <div className="add-address-input-sec">
-                    address:{" "}
+                    address:{' '}
                     <input
                       type="text"
                       name="address"
@@ -289,26 +282,26 @@ const Address = () => {
                 </div>
                 <div className="add-address-sec-right">
                   <div className="add-address-input-sec">
-                    email:{" "}
+                    email:{' '}
                     <input
                       type="text"
                       name="email"
                       className="add-address-input"
                       onChange={addressInput}
-                    />{" "}
+                    />{' '}
                   </div>
                   <div className="add-address-input-sec">
-                    pin code:{" "}
+                    pin code:{' '}
                     <input
                       type="number"
                       name="pin_code"
                       className="add-address-input"
                       onChange={addressInput}
-                    />{" "}
+                    />{' '}
                   </div>
                   <div className="add-address-input-sec">
-                    {" "}
-                    phone:{" "}
+                    {' '}
+                    phone:{' '}
                     <input
                       type="number"
                       className="add-address-input"
@@ -317,8 +310,8 @@ const Address = () => {
                     />
                   </div>
                   <div className="add-address-input-sec">
-                    {" "}
-                    Address type:{" "}
+                    {' '}
+                    Address type:{' '}
                     <div className="add-address-input-radio-sec">
                       <div className="add-address-input-radio">
                         <input
@@ -342,7 +335,7 @@ const Address = () => {
                         />
                         work
                       </div>
-                    </div>{" "}
+                    </div>{' '}
                   </div>
                 </div>
               </div>

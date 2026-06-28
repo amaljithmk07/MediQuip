@@ -1,5 +1,5 @@
-import { clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 /**
  * Merges tailwind classes seamlessly, resolving conflicts
@@ -21,6 +21,6 @@ export const theme = {
       border: '#e5e7eb',
       text: '#0f172a',
       muted: '#64748b',
-    }
-  }
+    },
+  },
 };

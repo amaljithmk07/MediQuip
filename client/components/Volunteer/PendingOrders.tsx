@@ -1,15 +1,14 @@
-"use client";
-import React, { useEffect, useState } from "react";
+'use client';
+import React, { useEffect, useState } from 'react';
 
-import axios from "axios";
+import axios from 'axios';
 import { useRouter as useNavigate } from 'next/navigation';
 import Link from 'next/link';
 
-
-import Base_URL from "../Constant/constant";
+import Base_URL from '../Constant/constant';
 const PendingOrders = () => {
   const navigate = useNavigate();
-  const token = (typeof window !== 'undefined' ? sessionStorage.getItem("Token") : null);
+  const token = typeof window !== 'undefined' ? sessionStorage.getItem('Token') : null;
   const [ordersrequest, setOrdersrequest] = useState([]);
   useEffect(() => {
     axios
@@ -60,9 +59,9 @@ const PendingOrders = () => {
       <div className="order-request-sub-body">
         <div className="order-request-sub-head">pending orders</div>
         <div className="order-request-content-body">
-          {ordersrequest != "" ? (
+          {ordersrequest != '' ? (
             <>
-              {" "}
+              {' '}
               <div className="order-request-content-title-sec">
                 <div className="order-request-content-title">name</div>
                 <div className="order-request-content-title">category</div>
@@ -73,26 +72,17 @@ const PendingOrders = () => {
               </div>
               {ordersrequest.map((data) => (
                 <div className="order-request-content" key={data._id}>
+                  <div className="order-request-content-item"> {data.name} </div>
+                  <div className="order-request-content-item ">{data.category} </div>
+                  <div className="order-request-content-item">{data.sub_category}</div>
+                  <div className="order-request-content-item-qty">{data.cart_qty} </div>
                   <div className="order-request-content-item">
-                    {" "}
-                    {data.name}{" "}
-                  </div>
-                  <div className="order-request-content-item ">
-                    {data.category}{" "}
-                  </div>
-                  <div className="order-request-content-item">
-                    {data.sub_category}
-                  </div>
-                  <div className="order-request-content-item-qty">
-                    {data.cart_qty}{" "}
-                  </div>
-                  <div className="order-request-content-item">
-                    {" "}
+                    {' '}
                     <Link
                       href={`/volunteer/view-details/${data._id}`}
                       className="order-request-content-item-viewdetails"
                     >
-                      View Details{" "}
+                      View Details{' '}
                     </Link>
                   </div>
                   <div className="order-request-content-item">

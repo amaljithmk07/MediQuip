@@ -12,12 +12,19 @@ export const CardHeader = React.forwardRef<any, any>(({ className, ...props }, r
 CardHeader.displayName = 'CardHeader';
 
 export const CardTitle = React.forwardRef<any, any>(({ className, ...props }, ref) => (
-  <h3 ref={ref} className={cn('text-2xl font-semibold leading-none tracking-tight', className)} {...props} />
+  <h3
+    ref={ref}
+    className={cn(
+      'text-2xl font-display font-semibold leading-tight tracking-tight text-slate-800',
+      className
+    )}
+    {...props}
+  />
 ));
 CardTitle.displayName = 'CardTitle';
 
 export const CardDescription = React.forwardRef<any, any>(({ className, ...props }, ref) => (
-  <p ref={ref} className={cn('text-sm text-slate-500', className)} {...props} />
+  <p ref={ref} className={cn('text-sm text-slate-500 leading-relaxed', className)} {...props} />
 ));
 CardDescription.displayName = 'CardDescription';
 

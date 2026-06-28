@@ -1,14 +1,13 @@
-const authService = require("./auth.service");
-const googleService = require("./google.service");
-const tokenService = require("./token.service");
+const authService = require('./auth.service');
+const googleService = require('./google.service');
+const tokenService = require('./token.service');
 
 class AuthController {
-  
   async login(req, res) {
     try {
       const { email, password } = req.body;
       const user = await authService.loginWithEmailAndPassword(email, password);
-      
+
       const deviceInfo = req.headers['user-agent'] || 'Unknown Device';
       const accessToken = tokenService.generateAccessToken(user);
       const refreshToken = await tokenService.generateRefreshToken(user, deviceInfo);
@@ -20,12 +19,12 @@ class AuthController {
         loginId: user._id,
         userRole: user.role,
         email: user.email,
-        message: "Login Successful",
+        message: 'Login Successful',
       });
     } catch (error) {
       return res.status(401).json({
         success: false,
-        message: error.message || "Authentication failed",
+        message: error.message || 'Authentication failed',
       });
     }
   }
@@ -34,12 +33,12 @@ class AuthController {
     try {
       const { token } = req.body;
       if (!token) {
-        return res.status(400).json({ success: false, message: "No Google token provided" });
+        return res.status(400).json({ success: false, message: 'No Google token provided' });
       }
 
       const payload = await googleService.verifyIdToken(token);
       const user = await googleService.handleGoogleLogin(payload);
-      
+
       const deviceInfo = req.headers['user-agent'] || 'Unknown Device';
       const accessToken = tokenService.generateAccessToken(user);
       const refreshToken = await tokenService.generateRefreshToken(user, deviceInfo);
@@ -48,14 +47,16 @@ class AuthController {
 
       return res.status(200).json({
         success: true,
-        message: "Google Auth successful",
+        message: 'Google Auth successful',
         userRole: user.role,
         loginId: user._id,
-        email: user.email
+        email: user.email,
       });
     } catch (error) {
-      console.error("Google auth error:", error);
-      return res.status(401).json({ success: false, message: error.message || "Google authentication failed" });
+      console.error('Google auth error:', error);
+      return res
+        .status(401)
+        .json({ success: false, message: error.message || 'Google authentication failed' });
     }
   }
 
@@ -63,7 +64,7 @@ class AuthController {
     try {
       const oldRefreshToken = req.cookies?.refreshToken;
       if (!oldRefreshToken) {
-        return res.status(401).json({ success: false, message: "No refresh token provided" });
+        return res.status(401).json({ success: false, message: 'No refresh token provided' });
       }
 
       // 1. Validate the old refresh token (throws if invalid, expired, or revoked)
@@ -73,11 +74,11 @@ class AuthController {
       await tokenService.revokeToken(oldRefreshToken);
 
       // 3. Get the user object
-      const loginSchema = require("../models/loginschema");
+      const loginSchema = require('../models/loginschema');
       const user = await loginSchema.findById(tokenDoc.userId);
-      
+
       if (!user) {
-        return res.status(404).json({ success: false, message: "User not found" });
+        return res.status(404).json({ success: false, message: 'User not found' });
       }
 
       // 4. Issue new pair of tokens
@@ -89,13 +90,15 @@ class AuthController {
 
       return res.status(200).json({
         success: true,
-        message: "Token refreshed successfully",
-        userRole: user.role
+        message: 'Token refreshed successfully',
+        userRole: user.role,
       });
     } catch (error) {
       // If validation fails or token is revoked, clear cookies for security
       tokenService.clearTokenCookies(res);
-      return res.status(403).json({ success: false, message: error.message || "Invalid refresh token" });
+      return res
+        .status(403)
+        .json({ success: false, message: error.message || 'Invalid refresh token' });
     }
   }
 
@@ -105,43 +108,45 @@ class AuthController {
       if (oldRefreshToken) {
         await tokenService.revokeToken(oldRefreshToken);
       }
-      
+
       tokenService.clearTokenCookies(res);
-      return res.status(200).json({ success: true, message: "Logged out successfully" });
+      return res.status(200).json({ success: true, message: 'Logged out successfully' });
     } catch (error) {
-      return res.status(500).json({ success: false, message: "Internal server error during logout" });
+      return res
+        .status(500)
+        .json({ success: false, message: 'Internal server error during logout' });
     }
   }
 
   async uuidVerify(req, res) {
     try {
       const userid = req.userData.userId;
-      const register = require("../models/registerschema");
+      const register = require('../models/registerschema');
       const userdata = await register.findOne({ login_id: userid });
-      
+
       if (!userdata) {
-        return res.status(404).json({ success: false, message: "User profile not found" });
+        return res.status(404).json({ success: false, message: 'User profile not found' });
       }
 
       if (userdata.user_id === req.body.user_id) {
         return res.status(200).json({
           success: true,
-          message: "Success",
+          message: 'Success',
           uuid: req.body.user_id,
         });
       } else {
-        return res.status(400).json({ success: false, message: "Wrong UUID" });
+        return res.status(400).json({ success: false, message: 'Wrong UUID' });
       }
     } catch (err) {
-      return res.status(500).json({ success: false, message: "Internal server error" });
+      return res.status(500).json({ success: false, message: 'Internal server error' });
     }
   }
 
   async authTime(req, res) {
     try {
-      return res.status(200).json({ success: true, message: "Session Valid" });
+      return res.status(200).json({ success: true, message: 'Session Valid' });
     } catch (err) {
-      return res.status(500).json({ success: false, message: "Session Time Out" });
+      return res.status(500).json({ success: false, message: 'Session Time Out' });
     }
   }
 }

@@ -1,7 +1,7 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { usePathname, useRouter as useNavigate } from "next/navigation";
+'use client';
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { usePathname, useRouter as useNavigate } from 'next/navigation';
 import {
   Home,
   ShieldCheck,
@@ -13,8 +13,8 @@ import {
   Clock,
   User,
   LogOut,
-} from "lucide-react";
-import { useSelector } from "react-redux";
+} from 'lucide-react';
+import { useSelector } from 'react-redux';
 
 const NavItem = ({ href, icon: Icon, label, badge }: any) => {
   const pathname = usePathname();
@@ -22,18 +22,15 @@ const NavItem = ({ href, icon: Icon, label, badge }: any) => {
   return (
     <Link href={href}>
       <div
-        className={`flex items-center justify-between px-3 py-2 rounded-md mb-1 transition-all duration-150 ${isActive ? "bg-blue-50 text-blue-600 border-l-2 border-blue-600 font-semibold" : "text-slate-500 hover:bg-slate-50 hover:text-slate-800 border-l-2 border-transparent font-medium"}`}
+        className={`flex items-center justify-between px-3 py-2 rounded-md mb-1 transition-all duration-150 ${isActive ? 'bg-blue-50 text-blue-600 border-l-2 border-blue-600 font-semibold' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800 border-l-2 border-transparent font-medium'}`}
       >
         <div className="flex items-center gap-3">
-          <Icon
-            size={18}
-            className={isActive ? "text-blue-600" : "text-slate-400"}
-          />
+          <Icon size={18} className={isActive ? 'text-blue-600' : 'text-slate-400'} />
           <span className="text-sm">{label}</span>
         </div>
         {badge !== undefined && badge > 0 && (
           <span
-            className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? "bg-blue-100 text-blue-700" : "bg-slate-200 text-slate-600"}`}
+            className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? 'bg-blue-100 text-blue-700' : 'bg-slate-200 text-slate-600'}`}
           >
             {badge}
           </span>
@@ -49,8 +46,8 @@ const Sidebar = () => {
   const [role, setRole] = useState<string | null>(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setRole(sessionStorage.getItem("Role"));
+    if (typeof window !== 'undefined') {
+      setRole(sessionStorage.getItem('Role'));
     }
   }, []);
 
@@ -58,7 +55,7 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     sessionStorage.clear();
-    window.location.href = "/login";
+    window.location.href = '/login';
   };
 
   return (
@@ -78,13 +75,13 @@ const Sidebar = () => {
           </p>
           <NavItem
             href={
-              role === "1"
-                ? "/admin/new-product"
-                : role === "2"
-                  ? "/user/dashboard"
-                  : role === "3"
-                    ? "/volunteer/new-product-list"
-                    : "/login"
+              role === '1'
+                ? '/admin/new-product'
+                : role === '2'
+                  ? '/user/dashboard'
+                  : role === '3'
+                    ? '/volunteer/new-product-list'
+                    : '/login'
             }
             icon={Home}
             label="Dashboard"
@@ -93,83 +90,51 @@ const Sidebar = () => {
         </div>
 
         {/* User Role Links */}
-        {role === "2" && (
+        {role === '2' && (
           <>
             <div className="mb-6">
               <p className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
                 Actions
               </p>
-              <NavItem
-                href="/uuidverify"
-                icon={ShieldCheck}
-                label="Donate Equipment"
-              />
-              <NavItem
-                href="/user/viewproduct"
-                icon={Package}
-                label="Equipment Catalog"
-              />
+              <NavItem href="/uuidverify" icon={ShieldCheck} label="Donate Equipment" />
+              <NavItem href="/user/viewproduct" icon={Package} label="Equipment Catalog" />
             </div>
             <div className="mb-6">
               <p className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
                 Activity
               </p>
-              <NavItem
-                href="/user/donated-products"
-                icon={HeartPulse}
-                label="My Donations"
-              />
+              <NavItem href="/user/donated-products" icon={HeartPulse} label="My Donations" />
               <NavItem
                 href="/user/cart"
                 icon={ShoppingCart}
                 label="My Requests"
                 badge={cartitems.length}
               />
-              <NavItem
-                href="/user/order-summary"
-                icon={List}
-                label="Request History"
-              />
+              <NavItem href="/user/order-summary" icon={List} label="Request History" />
             </div>
           </>
         )}
 
         {/* Admin Role Links */}
-        {role === "1" && (
+        {role === '1' && (
           <div className="mb-6">
             <p className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
               Administration
             </p>
-            <NavItem
-              href="/admin/new-product"
-              icon={Package}
-              label="New Equipment"
-            />
-            <NavItem
-              href="/volunteer/request"
-              icon={ClipboardCheck}
-              label="Equipment Requests"
-            />
+            <NavItem href="/admin/new-product" icon={Package} label="New Equipment" />
+            <NavItem href="/volunteer/request" icon={ClipboardCheck} label="Equipment Requests" />
             <NavItem href="/volunteer/list" icon={List} label="Volunteers" />
           </div>
         )}
 
         {/* Volunteer Role Links */}
-        {role === "3" && (
+        {role === '3' && (
           <div className="mb-6">
             <p className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
               Volunteer Duties
             </p>
-            <NavItem
-              href="/volunteer/new-product-list"
-              icon={Package}
-              label="Equipment Check"
-            />
-            <NavItem
-              href="/volunteer/pending-orders"
-              icon={Clock}
-              label="Pending Deliveries"
-            />
+            <NavItem href="/volunteer/new-product-list" icon={Package} label="Equipment Check" />
+            <NavItem href="/volunteer/pending-orders" icon={Clock} label="Pending Deliveries" />
             <NavItem
               href="/volunteer/accepted-orders"
               icon={ClipboardCheck}

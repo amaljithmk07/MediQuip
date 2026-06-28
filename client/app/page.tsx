@@ -1,26 +1,26 @@
-"use client";
-import { useEffect } from "react";
-import { useRouter as useNavigate } from "next/navigation";
+'use client';
+import { useEffect } from 'react';
+import { useRouter as useNavigate } from 'next/navigation';
 
 export default function RootRedirect() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = typeof window !== 'undefined' ? sessionStorage.getItem("Token") : null;
-    const role = typeof window !== 'undefined' ? sessionStorage.getItem("Role") : null;
+    const token = typeof window !== 'undefined' ? sessionStorage.getItem('Token') : null;
+    const role = typeof window !== 'undefined' ? sessionStorage.getItem('Role') : null;
 
     if (!token || !role) {
-      navigate.push("/login");
+      navigate.push('/login');
     } else {
       // Redirect based on role if needed, or default to a common dashboard page
-      if (role === "1") {
-        navigate.push("/admin/new-product");
-      } else if (role === "2") {
-        navigate.push("/user/dashboard");
-      } else if (role === "3") {
-        navigate.push("/volunteer/new-product-list");
+      if (role === '1') {
+        navigate.push('/admin/new-product');
+      } else if (role === '2') {
+        navigate.push('/user/dashboard');
+      } else if (role === '3') {
+        navigate.push('/volunteer/new-product-list');
       } else {
-        navigate.push("/profile");
+        navigate.push('/profile');
       }
     }
   }, [navigate]);

@@ -1,4 +1,4 @@
-import NewProductList from "@/components/Volunteer/NewProductList";
+import NewProductList from '@/components/Volunteer/NewProductList';
 
 export default function Page() {
   return <NewProductList />;

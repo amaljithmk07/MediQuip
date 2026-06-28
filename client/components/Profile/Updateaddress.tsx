@@ -1,29 +1,29 @@
-"use client";
-import React, { useEffect, useState } from "react";
+'use client';
+import React, { useEffect, useState } from 'react';
 
-import axios from "axios";
+import axios from 'axios';
 
-import toast, { Toaster } from "react-hot-toast";
+import toast, { Toaster } from 'react-hot-toast';
 import { useRouter as useNavigate } from 'next/navigation';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import Base_URL from "../Constant/constant";
+import Base_URL from '../Constant/constant';
 
 const Updateaddress = () => {
   const navigate = useNavigate();
 
-  const token = (typeof window !== 'undefined' ? sessionStorage.getItem("Token") : null);
+  const token = typeof window !== 'undefined' ? sessionStorage.getItem('Token') : null;
 
   const [editaddress, setEditaddress] = useState({
-    name: "",
-    district: "",
-    state: "",
-    address: "",
-    email: "",
-    alternate_phone: "",
-    pin_code: "",
-    alternate_phone: "",
-    address_type: "",
+    name: '',
+    district: '',
+    state: '',
+    address: '',
+    email: '',
+    alternate_phone: '',
+    pin_code: '',
+    alternate_phone: '',
+    address_type: '',
   });
 
   const addressInput = (e) => {
@@ -63,7 +63,7 @@ const Updateaddress = () => {
       .then((data) => {
         console.log(data);
         // setEditaddress(data.data.data[0]);
-        navigate.push("/user/address");
+        navigate.push('/user/address');
       })
       .catch((err) => {
         console.log(err);
@@ -80,7 +80,7 @@ const Updateaddress = () => {
               <div className="update-address-sec">
                 <div className="update-address-sec-left">
                   <div className="update-address-input-sec">
-                    Name:{" "}
+                    Name:{' '}
                     <input
                       type="text"
                       name="name"
@@ -90,7 +90,7 @@ const Updateaddress = () => {
                     />
                   </div>
                   <div className="update-address-input-sec">
-                    state:{" "}
+                    state:{' '}
                     <input
                       type="text"
                       name="state"
@@ -100,7 +100,7 @@ const Updateaddress = () => {
                     />
                   </div>
                   <div className="update-address-input-sec">
-                    district:{" "}
+                    district:{' '}
                     <input
                       type="text"
                       className="update-address-input"
@@ -110,7 +110,7 @@ const Updateaddress = () => {
                     />
                   </div>
                   <div className="update-address-input-sec">
-                    address:{" "}
+                    address:{' '}
                     <input
                       type="text"
                       value={editaddress.address}
@@ -122,28 +122,28 @@ const Updateaddress = () => {
                 </div>
                 <div className="update-address-sec-right">
                   <div className="update-address-input-sec">
-                    email:{" "}
+                    email:{' '}
                     <input
                       type="text"
                       value={editaddress.email}
                       name="email"
                       className="update-address-input"
                       onChange={addressInput}
-                    />{" "}
+                    />{' '}
                   </div>
                   <div className="update-address-input-sec">
-                    pin code:{" "}
+                    pin code:{' '}
                     <input
                       type="number"
                       value={editaddress.pin_code}
                       name="pin_code"
                       className="update-address-input"
                       onChange={addressInput}
-                    />{" "}
+                    />{' '}
                   </div>
                   <div className="update-address-input-sec">
-                    {" "}
-                    phone:{" "}
+                    {' '}
+                    phone:{' '}
                     <input
                       type="number"
                       value={editaddress.alternate_phone}
@@ -153,8 +153,8 @@ const Updateaddress = () => {
                     />
                   </div>
                   <div className="update-address-input-sec">
-                    {" "}
-                    Address type:{" "}
+                    {' '}
+                    Address type:{' '}
                     <div className="update-address-input-radio-sec">
                       <div className="update-address-input-radio">
                         <input
@@ -177,16 +177,13 @@ const Updateaddress = () => {
                           value="work"
                         />
                         work
-                      </div>{" "}
+                      </div>{' '}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <button
-              onClick={() => updateAddress(editaddress._id)}
-              className="update-address-btn"
-            >
+            <button onClick={() => updateAddress(editaddress._id)} className="update-address-btn">
               Update Address
             </button>
           </div>

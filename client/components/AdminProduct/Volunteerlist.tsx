@@ -1,20 +1,19 @@
-"use client";
-import React, { useEffect, useState } from "react";
+'use client';
+import React, { useEffect, useState } from 'react';
 
-import toast, { Toaster } from "react-hot-toast";
-import axios from "axios";
+import toast, { Toaster } from 'react-hot-toast';
+import axios from 'axios';
 import { useRouter as useNavigate } from 'next/navigation';
 
-import Base_URL from "../Constant/constant";
+import Base_URL from '../Constant/constant';
 // import { useRouter as useNavigate } from 'next/navigation';
 import Link from 'next/link';
-
 
 // import { Toast, ToastContainer } from "react-toastify/dist/components";
 
 const Volunteerlist = () => {
   const navigate = useNavigate();
-  const token = (typeof window !== 'undefined' ? sessionStorage.getItem("Token") : null);
+  const token = typeof window !== 'undefined' ? sessionStorage.getItem('Token') : null;
   const [volunteerlist, SetVolunteerlist] = useState([]);
   useEffect(() => {
     axios
@@ -31,12 +30,12 @@ const Volunteerlist = () => {
       .catch((err) => {
         console.log(err);
         if (err.response.status == 401) {
-          toast.error("Session Time Out", {
-            position: "top-center",
+          toast.error('Session Time Out', {
+            position: 'top-center',
           });
           setTimeout(() => {
             sessionStorage.clear();
-            navigate.push("/login");
+            navigate.push('/login');
           }, 2000);
         }
       });
@@ -53,7 +52,7 @@ const Volunteerlist = () => {
             {volunteerlist.map((data) => (
               <div className="volunteerlist-card-body" key={data._id}>
                 <div className="volunteerlist-card-image-sec">
-                  {data.image !== "" ? (
+                  {data.image !== '' ? (
                     <img
                       // src={`/upload/${data.image}`}
                       src={data.image}

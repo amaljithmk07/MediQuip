@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const addressshcema = new mongoose.Schema({
   login_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "login_tb",
+    ref: 'login_tb',
     required: true,
   },
   name: { type: String, required: true },
@@ -14,8 +14,8 @@ const addressshcema = new mongoose.Schema({
   pin_code: { type: Number, required: true },
   alternate_phone: { type: Number, required: true },
   address_type: { type: String, required: true },
-  category: { type: String, require: true, default: "" },
-  status: { type: String, require: true, default: "active" },
+  category: { type: String, require: true, default: '' },
+  status: { type: String, require: true, default: 'active' },
 });
-const data = mongoose.model("Address_tb", addressshcema);
+const data = mongoose.model('Address_tb', addressshcema);
 module.exports = data;

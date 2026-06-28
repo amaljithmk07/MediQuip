@@ -6,8 +6,8 @@ const loginschema = new Schema({
   password: { type: String },
   role: { type: Number, required: true },
   googleId: { type: String },
-  authProvider: { type: String, enum: ["local", "google"], default: "local" },
-  createdAt: { type: Date, default: Date.now }
+  authProvider: { type: String, enum: ['local', 'google'], default: 'local' },
+  createdAt: { type: Date, default: Date.now },
 });
 
 var Logindata = mongoose.model('login_tb', loginschema); //model creation
