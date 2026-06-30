@@ -51,9 +51,9 @@ const Uuidverify = () => {
 
   return (
     <div className="h-lvh flex items-center justify-center bg-bg px-4 relative overflow-hidden">
-      <div className="w-full max-w-md bg-card/80 backdrop-blur-xl border border-border/50 p-10 rounded-[24px] shadow-2xl relative z-10 text-center">
+      <div className="w-full max-w-md bg-card/80 backdrop-blur-xl border border-border/50 p-10 rounded-premium shadow-2xl relative z-10 text-center">
         <div className="mb-8">
-          <div className="w-20 h-20 bg-gradient-to-br from-primarySoft to-white rounded-[20px] shadow-inner flex items-center justify-center mx-auto mb-6 border border-primary/20 relative overflow-hidden group">
+          <div className="w-20 h-20 bg-gradient-to-br from-primarySoft to-white rounded-premium shadow-inner flex items-center justify-center mx-auto mb-6 border border-primary/20 relative overflow-hidden group">
             <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
             <svg
               className="w-10 h-10 text-primary drop-shadow-sm"
@@ -69,7 +69,7 @@ const Uuidverify = () => {
               />
             </svg>
           </div>
-          <h2 className="text-3xl font-bold text-text tracking-tight font-sans">Security Check</h2>
+          <h2 className="text-3xl font-display font-bold text-text tracking-tight">Security Check</h2>
           <p className="text-muted text-sm mt-3 font-medium">Enter your 4-digit secret UUID key</p>
         </div>
 
@@ -81,14 +81,14 @@ const Uuidverify = () => {
               maxLength={4}
               placeholder="••••"
               onChange={verify}
-              className="w-full bg-white/50 border-2 border-border/80 text-text text-center text-4xl tracking-[0.5em] py-5 rounded-[16px] focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all font-mono placeholder:tracking-normal placeholder:text-slate-300 shadow-sm"
+              className="w-full bg-white/50 border-2 border-border/80 text-text text-center text-4xl tracking-[0.5em] py-5 rounded-saas focus:outline-none focus:ring-4 focus:ring-primarySoft focus:border-primary transition-all font-mono placeholder:tracking-normal placeholder:text-slate-300 shadow-sm"
             />
           </div>
 
           <button
             onClick={handleClick}
             disabled={isVerifying || loadingText.length !== 4}
-            className="w-full bg-gradient-to-r from-primary to-primaryDark hover:from-primaryDark hover:to-[#1e3a8a] text-white font-semibold py-4 rounded-[14px] shadow-lg shadow-primary/30 transition-all duration-300 disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed uppercase tracking-widest text-sm active:scale-[0.98]"
+            className="btn btn-primary w-full py-4 text-sm font-semibold shadow-premium"
           >
             {isVerifying ? 'Authenticating...' : 'Verify Identity'}
           </button>

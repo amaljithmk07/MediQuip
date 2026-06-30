@@ -81,13 +81,13 @@ const Payment = () => {
       <Toaster />
 
       {/* Ambient background blur */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-teal-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primarySoft/10 rounded-full blur-[120px] pointer-events-none"></div>
 
       <div className="w-full max-w-4xl bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[2.5rem] shadow-2xl relative z-10 overflow-hidden flex flex-col md:flex-row animate-fade-in-up">
         {/* Left Side - Details */}
         <div className="w-full md:w-1/2 p-10 md:p-12 border-b md:border-b-0 md:border-r border-white/10">
           <div className="mb-10">
-            <div className="w-12 h-12 bg-teal-500 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-teal-500/30">
+            <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-primary/30">
               <svg
                 className="w-6 h-6 text-white"
                 fill="none"
@@ -119,7 +119,7 @@ const Payment = () => {
                 name="name"
                 value={price.name}
                 onChange={paymentInput}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primarySoft transition-all"
                 placeholder="John Doe"
               />
             </div>
@@ -133,7 +133,7 @@ const Payment = () => {
                 name="phone"
                 value={price.phone}
                 onChange={paymentInput}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primarySoft transition-all"
                 placeholder="9876543210"
               />
             </div>
@@ -151,7 +151,7 @@ const Payment = () => {
                   name="amount"
                   value={price.amount}
                   onChange={paymentInput}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl pl-8 pr-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all font-mono text-lg"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl pl-8 pr-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primarySoft transition-all font-mono text-lg"
                   placeholder="0.00"
                 />
               </div>
@@ -160,7 +160,7 @@ const Payment = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full mt-4 bg-teal-500 hover:bg-teal-400 text-slate-900 font-bold py-4 px-4 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5 uppercase tracking-wider text-sm disabled:opacity-50"
+              className="btn btn-primary w-full mt-4 py-4 px-4 shadow-premium uppercase tracking-wider text-sm disabled:opacity-50"
             >
               {loading ? 'Generating...' : 'Generate Secure QR'}
             </button>

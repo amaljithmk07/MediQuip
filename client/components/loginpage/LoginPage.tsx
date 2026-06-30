@@ -121,8 +121,8 @@ function LoginPage() {
             <form onSubmit={handleLoginSubmit} className="space-y-5">
               {/* Email Input */}
               <div className="relative group">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
-                  <Mail size={18} />
+                <div className="absolute z-100 inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
+                  <Mail size={18} className='text-slate-400'/>
                 </div>
                 <Input
                   type="email"
@@ -136,8 +136,8 @@ function LoginPage() {
 
               {/* Password Input */}
               <div className="relative group">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
-                  <Lock size={18} />
+                <div className="absolute inset-y-0 z-6 left-0 pl-3 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
+                  <Lock size={18} className='text-slate-400'/>
                 </div>
                 <Input
                   type={showPassword ? 'text' : 'password'}
@@ -160,7 +160,7 @@ function LoginPage() {
               <div className="flex justify-end">
                 <Link
                   href="#"
-                  className="text-sm font-medium text-slate-500 hover:text-blue-600 transition-colors"
+                  className="text-sm font-medium text-slate-500 hover:text-primary transition-colors"
                 >
                   Forgot password?
                 </Link>
@@ -182,7 +182,7 @@ function LoginPage() {
               Don't have an account?{' '}
               <Link
                 href="/register"
-                className="font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+                className="font-semibold text-primary hover:text-primaryDark transition-colors"
               >
                 Create Account
               </Link>

@@ -70,7 +70,7 @@ const Viewdetails = () => {
                 <div key={label} className="relative z-10 flex flex-col items-center">
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm shadow-md transition-all
-                    ${isCompleted ? 'bg-teal-500 text-white shadow-teal-500/30' : 'bg-white text-slate-400 border-2 border-slate-200'}`}
+                    ${isCompleted ? 'bg-primary text-white shadow-primary/30' : 'bg-white text-slate-400 border-2 border-slate-200'}`}
                   >
                     {isCompleted ? (
                       <svg
@@ -91,7 +91,7 @@ const Viewdetails = () => {
                     )}
                   </div>
                   <span
-                    className={`mt-3 text-sm font-medium ${isCurrent ? 'text-teal-600 font-bold' : isCompleted ? 'text-slate-700' : 'text-slate-400'}`}
+                    className={`mt-3 text-sm font-medium ${isCurrent ? 'text-primary font-bold' : isCompleted ? 'text-slate-700' : 'text-slate-400'}`}
                   >
                     {label}
                   </span>

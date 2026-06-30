@@ -88,7 +88,7 @@ const Ordersummary = () => {
           </div>
           <Link
             href="/user/viewproduct"
-            className="text-teal-600 font-bold hover:text-teal-700 transition-colors hidden sm:block"
+            className="text-primary font-bold hover:text-primaryDark transition-colors hidden sm:block"
           >
             &larr; Request more items
           </Link>
@@ -96,7 +96,7 @@ const Ordersummary = () => {
 
         {loading ? (
           <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
           </div>
         ) : orders.length === 0 ? (
           <div className="bg-white rounded-3xl shadow-soft border border-slate-100 p-16 flex flex-col items-center justify-center text-center">
@@ -116,7 +116,7 @@ const Ordersummary = () => {
             </p>
             <Link
               href="/"
-              className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5"
+              className="btn btn-primary px-8 shadow-premium"
             >
               Browse Equipment
             </Link>
@@ -149,7 +149,7 @@ const Ordersummary = () => {
                       </span>
                       <Link
                         href={`/volunteer/view-details/${order._id}`}
-                        className="text-sm font-semibold text-teal-600 hover:text-teal-700 bg-white border border-slate-200 hover:border-teal-200 px-3 py-1.5 rounded-lg transition-colors"
+                        className="text-sm font-semibold text-primary hover:text-primaryDark bg-white border border-slate-200 hover:border-primarySoft px-3 py-1.5 rounded-lg transition-colors"
                       >
                         View Details
                       </Link>
@@ -164,7 +164,7 @@ const Ordersummary = () => {
 
                       {/* Active Connecting Line */}
                       <div
-                        className="absolute left-4 sm:left-1/2 top-0 sm:top-5 sm:h-1 sm:-translate-x-1/2 bg-teal-500 rounded transition-all duration-1000 ease-out hidden sm:block"
+                        className="absolute left-4 sm:left-1/2 top-0 sm:top-5 sm:h-1 sm:-translate-x-1/2 bg-primary rounded transition-all duration-1000 ease-out hidden sm:block"
                         style={{ width: `${(currentStep - 1) * 33.33}%` }}
                       ></div>
 
@@ -172,7 +172,7 @@ const Ordersummary = () => {
                         {/* Step 1: Requested */}
                         <div className="flex sm:flex-col items-center gap-4 sm:gap-2 relative z-10 w-full sm:w-1/4">
                           <div
-                            className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border-2 transition-colors ${currentStep >= 1 ? 'bg-teal-500 border-teal-500 text-white shadow-md' : 'bg-white border-slate-300 text-slate-400'}`}
+                            className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border-2 transition-colors ${currentStep >= 1 ? 'bg-primary border-primary text-white shadow-md' : 'bg-white border-slate-300 text-slate-400'}`}
                           >
                             <svg
                               className="w-5 h-5"
@@ -201,7 +201,7 @@ const Ordersummary = () => {
                         {/* Step 2: Approved */}
                         <div className="flex sm:flex-col items-center gap-4 sm:gap-2 relative z-10 w-full sm:w-1/4">
                           <div
-                            className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border-2 transition-colors ${currentStep >= 2 ? 'bg-teal-500 border-teal-500 text-white shadow-md' : 'bg-white border-slate-300 text-slate-400'}`}
+                            className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border-2 transition-colors ${currentStep >= 2 ? 'bg-primary border-primary text-white shadow-md' : 'bg-white border-slate-300 text-slate-400'}`}
                           >
                             <svg
                               className="w-5 h-5"
@@ -230,7 +230,7 @@ const Ordersummary = () => {
                         {/* Step 3: Assigned */}
                         <div className="flex sm:flex-col items-center gap-4 sm:gap-2 relative z-10 w-full sm:w-1/4">
                           <div
-                            className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border-2 transition-colors ${currentStep >= 3 ? 'bg-teal-500 border-teal-500 text-white shadow-md' : 'bg-white border-slate-300 text-slate-400'}`}
+                            className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border-2 transition-colors ${currentStep >= 3 ? 'bg-primary border-primary text-white shadow-md' : 'bg-white border-slate-300 text-slate-400'}`}
                           >
                             <svg
                               className="w-5 h-5"

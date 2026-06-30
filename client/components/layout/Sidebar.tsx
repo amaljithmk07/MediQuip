@@ -145,10 +145,10 @@ const Sidebar = () => {
       </div>
 
       {/* Logout Area */}
-      <div className="p-4 border-t border-slate-200">
+      <div className="p-4 border-t border-white/60 bg-white/40">
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 w-full px-3 py-2.5 text-sm font-medium text-red-500 hover:bg-red-50 rounded-md transition-colors"
+          className="flex items-center gap-3 w-full px-3 py-2.5 text-sm font-medium text-error hover:bg-white/60 hover:shadow-sm rounded-xl transition-all"
         >
           <LogOut size={18} /> Logout
         </button>

@@ -48,7 +48,7 @@ const Usercart = () => {
             </p>
             <Link
               href="/user/viewproduct"
-              className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5"
+              className="btn btn-primary px-8"
             >
               Browse Equipment
             </Link>
@@ -89,7 +89,7 @@ const Usercart = () => {
                               />
                             </div>
                             <div>
-                              <div className="font-bold text-slate-800 line-clamp-1 group-hover:text-teal-600 transition-colors">
+                              <div className="font-bold text-slate-800 line-clamp-1 group-hover:text-primary transition-colors">
                                 {item.name}
                               </div>
                               <div className="text-xs text-slate-500 mt-1">
@@ -114,7 +114,7 @@ const Usercart = () => {
                                 e.preventDefault();
                                 dispatch(decrementqty(item._id, item));
                               }}
-                              className="w-8 h-8 rounded-md flex items-center justify-center text-slate-500 hover:bg-white hover:text-teal-600 hover:shadow-sm transition-all"
+                              className="w-8 h-8 rounded-md flex items-center justify-center text-slate-500 hover:bg-white hover:text-primary hover:shadow-sm transition-all"
                             >
                               <svg
                                 className="w-4 h-4"
@@ -138,7 +138,7 @@ const Usercart = () => {
                                 e.preventDefault();
                                 dispatch(incrementqty(item._id, item));
                               }}
-                              className="w-8 h-8 rounded-md flex items-center justify-center text-slate-500 hover:bg-white hover:text-teal-600 hover:shadow-sm transition-all"
+                              className="w-8 h-8 rounded-md flex items-center justify-center text-slate-500 hover:bg-white hover:text-primary hover:shadow-sm transition-all"
                             >
                               <svg
                                 className="w-4 h-4"
@@ -211,7 +211,7 @@ const Usercart = () => {
                 <div className="border-t border-slate-100 pt-6 mb-8">
                   <div className="bg-teal-50 rounded-xl p-4 flex items-start gap-3">
                     <svg
-                      className="w-5 h-5 text-teal-600 mt-0.5 flex-shrink-0"
+                      className="w-5 h-5 text-primary mt-0.5 flex-shrink-0"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -223,7 +223,7 @@ const Usercart = () => {
                         d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                       />
                     </svg>
-                    <p className="text-xs text-teal-800 leading-relaxed">
+                    <p className="text-xs text-primaryDark leading-relaxed">
                       By proceeding, you agree that you are requesting these medical items for
                       legitimate use.
                     </p>
@@ -232,7 +232,7 @@ const Usercart = () => {
 
                 <Link
                   href="/user/order-place"
-                  className="block w-full text-center bg-teal-600 hover:bg-teal-700 text-white font-bold py-4 px-4 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5"
+                  className="block w-full text-center bg-primary-gradient hover:brightness-110 text-white font-bold py-4 px-4 rounded-xl shadow-premium transition-transform hover:-translate-y-0.5"
                 >
                   Submit Request
                 </Link>
@@ -240,7 +240,7 @@ const Usercart = () => {
                 <div className="mt-4 text-center">
                   <Link
                     href="/"
-                    className="text-sm font-medium text-slate-500 hover:text-teal-600 transition-colors"
+                    className="text-sm font-medium text-slate-500 hover:text-primary transition-colors"
                   >
                     Continue Browsing
                   </Link>

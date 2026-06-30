@@ -90,14 +90,14 @@ const RegistrationPage = () => {
   };
 
   const inputClass =
-    'w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all duration-200 shadow-sm';
+    'w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primarySoft focus:border-primary transition-all duration-200 shadow-sm';
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-medical-50 p-4 py-12">
       <Toaster />
       <div className="w-full max-w-2xl bg-white/70 backdrop-blur-xl p-8 md:p-12 rounded-3xl shadow-glass border border-slate-100 relative overflow-hidden animate-fade-in-up">
         {/* Decorative background circle */}
-        <div className="absolute -top-24 -right-24 w-64 h-64 bg-teal-400 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+        <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
 
         <div className="text-center mb-6 relative z-10">
           <img src="/logo.png" alt="Med.Equip Logo" className="h-14 mx-auto mb-6 object-contain" />
@@ -126,23 +126,23 @@ const RegistrationPage = () => {
         {/* Stepper */}
         <div className="flex justify-center items-center mb-10 relative z-10 max-w-md mx-auto">
           <div
-            className={`w-8 h-8 flex items-center justify-center rounded-full font-bold text-sm ${step >= 1 ? 'bg-teal-600 text-white' : 'bg-slate-200 text-slate-500'} transition-colors duration-300`}
+            className={`w-8 h-8 flex items-center justify-center rounded-full font-bold text-sm ${step >= 1 ? 'bg-primary text-white' : 'bg-slate-200 text-slate-500'} transition-colors duration-300`}
           >
             1
           </div>
           <div
-            className={`flex-1 h-1 mx-2 rounded ${step >= 2 ? 'bg-teal-600' : 'bg-slate-200'} transition-colors duration-300`}
+            className={`flex-1 h-1 mx-2 rounded ${step >= 2 ? 'bg-primary' : 'bg-slate-200'} transition-colors duration-300`}
           ></div>
           <div
-            className={`w-8 h-8 flex items-center justify-center rounded-full font-bold text-sm ${step >= 2 ? 'bg-teal-600 text-white' : 'bg-slate-200 text-slate-500'} transition-colors duration-300`}
+            className={`w-8 h-8 flex items-center justify-center rounded-full font-bold text-sm ${step >= 2 ? 'bg-primary text-white' : 'bg-slate-200 text-slate-500'} transition-colors duration-300`}
           >
             2
           </div>
           <div
-            className={`flex-1 h-1 mx-2 rounded ${step >= 3 ? 'bg-teal-600' : 'bg-slate-200'} transition-colors duration-300`}
+            className={`flex-1 h-1 mx-2 rounded ${step >= 3 ? 'bg-primary' : 'bg-slate-200'} transition-colors duration-300`}
           ></div>
           <div
-            className={`w-8 h-8 flex items-center justify-center rounded-full font-bold text-sm ${step >= 3 ? 'bg-teal-600 text-white' : 'bg-slate-200 text-slate-500'} transition-colors duration-300`}
+            className={`w-8 h-8 flex items-center justify-center rounded-full font-bold text-sm ${step >= 3 ? 'bg-primary text-white' : 'bg-slate-200 text-slate-500'} transition-colors duration-300`}
           >
             3
           </div>
@@ -178,7 +178,7 @@ const RegistrationPage = () => {
               </div>
               <button
                 onClick={nextStep}
-                className="w-full mt-6 bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5"
+                className="btn btn-primary w-full mt-6 py-3 px-4 shadow-premium"
               >
                 Continue
               </button>
@@ -236,7 +236,7 @@ const RegistrationPage = () => {
                 </button>
                 <button
                   onClick={nextStep}
-                  className="w-2/3 bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5"
+                  className="btn btn-primary w-2/3 py-3 px-4 shadow-premium"
                 >
                   Continue
                 </button>
@@ -289,7 +289,7 @@ const RegistrationPage = () => {
               Already have an account?{' '}
               <Link
                 href="/login"
-                className="font-bold text-teal-600 hover:text-teal-700 transition-colors"
+                className="font-bold text-primary hover:text-primaryDark transition-colors"
               >
                 Log In
               </Link>

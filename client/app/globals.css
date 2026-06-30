@@ -30,7 +30,7 @@
     @apply inline-flex items-center justify-center rounded-premium text-sm font-bold transition-all duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primarySoft disabled:pointer-events-none disabled:opacity-50 active:scale-[0.96] overflow-hidden relative;
   }
   .btn-primary {
-    @apply bg-primary-gradient text-white shadow-soft hover:shadow-glow hover:bg-none hover:bg-primaryDark;
+    @apply bg-primary-gradient text-white shadow-soft hover:shadow-glow hover:brightness-110;
   }
   .btn-secondary {
     @apply bg-white/80 backdrop-blur-md border border-white/60 text-text shadow-soft hover:bg-white hover:border-white;
