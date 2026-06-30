@@ -4,57 +4,57 @@
 
 @layer base {
   :root {
-    --background: #f8fafc;
-    --surface: #ffffff;
-    --border: #e2e8f0;
-    --text: #0f172a;
-    --muted: #64748b;
+    --background: #F8FAFC;
+    --surface: #FFFFFF;
+    --border: #E2E8F0;
+    --text: #0F172A;
+    --muted: #475569;
 
-    --primary: #0f766e;
-    --danger: #ef4444;
-    --success: #10b981;
-    --warning: #f59e0b;
-    --info: #3b82f6;
+    --primary: #065F46;
+    --danger: #DC2626;
+    --success: #059669;
+    --warning: #F59E0B;
+    --info: #2563EB;
 
     --radius: 16px;
   }
 
   body {
-    @apply bg-bg text-text font-sans antialiased selection:bg-primarySoft selection:text-primaryDark;
+    @apply text-text font-sans antialiased selection:bg-primarySoft selection:text-primaryDark min-h-screen bg-premium-gradient bg-fixed bg-cover;
   }
 }
 
 @layer components {
   /* Premium Button System */
   .btn {
-    @apply inline-flex items-center justify-center rounded-premium text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primarySoft disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98];
+    @apply inline-flex items-center justify-center rounded-premium text-sm font-bold transition-all duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primarySoft disabled:pointer-events-none disabled:opacity-50 active:scale-[0.96] overflow-hidden relative;
   }
   .btn-primary {
-    @apply bg-primary text-white shadow-soft hover:bg-primaryDark hover:shadow-premium;
+    @apply bg-primary-gradient text-white shadow-soft hover:shadow-glow hover:bg-none hover:bg-primaryDark;
   }
   .btn-secondary {
-    @apply bg-white border border-border text-text shadow-soft hover:bg-bg hover:border-slate-300;
+    @apply bg-white/80 backdrop-blur-md border border-white/60 text-text shadow-soft hover:bg-white hover:border-white;
   }
   .btn-danger {
-    @apply bg-error text-white shadow-soft hover:bg-red-600 hover:shadow-premium;
+    @apply bg-error text-white shadow-soft hover:bg-red-700 hover:shadow-premium;
   }
   .btn-ghost {
-    @apply hover:bg-slate-100 text-text hover:text-primary;
+    @apply hover:bg-slate-100/50 text-text hover:text-primary backdrop-blur-sm;
   }
 
   /* Premium Input System */
   .input {
-    @apply flex h-11 w-full rounded-saas border border-border bg-white px-4 py-2 text-sm transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-primarySoft focus:border-primary disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-mutedLight shadow-sm hover:border-slate-300;
+    @apply flex h-12 w-full rounded-saas border border-border/60 bg-white/60 backdrop-blur-md px-4 py-2 text-sm transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-primarySoft focus:border-primary focus:bg-white disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-mutedLight shadow-sm hover:border-slate-300 hover:bg-white/80;
   }
 
   /* Premium Card System */
   .card {
-    @apply rounded-premium border border-border bg-surface shadow-soft transition-shadow duration-300 hover:shadow-premium overflow-hidden;
+    @apply rounded-premium border border-white/40 bg-glass-gradient backdrop-blur-2xl shadow-premium transition-all duration-500 hover:shadow-glass hover:-translate-y-1 overflow-hidden relative;
   }
 
   /* Glassmorphism */
   .glass {
-    @apply bg-white/70 backdrop-blur-xl border border-white/40 shadow-glass;
+    @apply bg-white/50 backdrop-blur-2xl border border-white/60 shadow-glass;
   }
 }
 

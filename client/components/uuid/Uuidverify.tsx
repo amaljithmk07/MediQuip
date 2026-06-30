@@ -50,7 +50,7 @@ const Uuidverify = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-bg px-4 relative overflow-hidden">
+    <div className="h-lvh flex items-center justify-center bg-bg px-4 relative overflow-hidden">
       <div className="w-full max-w-md bg-card/80 backdrop-blur-xl border border-border/50 p-10 rounded-[24px] shadow-2xl relative z-10 text-center">
         <div className="mb-8">
           <div className="w-20 h-20 bg-gradient-to-br from-primarySoft to-white rounded-[20px] shadow-inner flex items-center justify-center mx-auto mb-6 border border-primary/20 relative overflow-hidden group">

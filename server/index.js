@@ -51,3 +51,6 @@ const port = process.env.PORT;
 server.listen(port, () => {
   console.log(`server started on port ${port}`);
 });
+
+const startReservationWorker = require('./workers/reservationTimeout');
+startReservationWorker();

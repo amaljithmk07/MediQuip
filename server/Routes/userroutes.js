@@ -43,8 +43,21 @@ const upload = multer({ storage: storage });
 
 //---Product add
 
-userroutes.post('/add', upload.single('image'), Checkauth, (req, res) => {
+userroutes.post('/add', upload.single('image'), Checkauth, async (req, res) => {
   try {
+    const transferType = req.body.transferType || 'FREE';
+
+    if (transferType === 'RECOVERY') {
+      const userProfile = await registerDB.findOne({ login_id: req.userData.userId });
+      if (!userProfile || !userProfile.upiId) {
+        return res.status(400).json({
+          error: true,
+          success: false,
+          message: 'UPI ID is required for Recovery Transfers. Please update your profile.',
+        });
+      }
+    }
+
     const Data = new products({
       // image: req.file ? req.file.filename : null,
       image: req.file ? req.file.path : null,
@@ -59,24 +72,22 @@ userroutes.post('/add', upload.single('image'), Checkauth, (req, res) => {
       phone_number: req.body.phone_number,
       address: req.body.address,
       pin_code: req.body.pin_code,
+      transferType: transferType,
+      recoveryAmount: req.body.recoveryAmount || 0,
+      estimatedValue: req.body.estimatedValue || 0,
+      condition: req.body.condition || 'Good',
+      originalOwner: req.userData.userId,
+      currentHolder: req.userData.userId,
     });
-    Data.save()
-      .then((data) => {
-        res.status(200).json({
-          success: true,
-          error: false,
-          message: 'Data added successfully',
-          data: data,
-        });
-      })
-      .catch((err) => {
-        res.status(400).json({
-          error: true,
-          success: false,
-          message: 'data add failed ',
-          errorMessage: err.message,
-        });
-      });
+    
+    await Data.save();
+    
+    res.status(200).json({
+      success: true,
+      error: false,
+      message: 'Data added successfully',
+      data: Data,
+    });
   } catch (err) {
     res.status(500).json({
       error: true,
@@ -86,6 +97,7 @@ userroutes.post('/add', upload.single('image'), Checkauth, (req, res) => {
     });
   }
 });
+
 
 // UnAuthorised Product View
 
@@ -272,7 +284,7 @@ userroutes.put('/edit-product/:id', Checkauth, upload.single('image'), async (re
     console.log(olddata);
     const newdata = {
       // image: req.body.image ? req.body.image : olddata.image,
-      image: req.file.path ? req.file.path : olddata.image,
+      image: req.file ? req.file.path : olddata.image,
       name: req.body.name ? req.body.name : olddata.name,
       description: req.body.description ? req.body.description : olddata.description,
       available_qty: req.body.available_qty ? req.body.available_qty : olddata.available_qty,
@@ -283,6 +295,10 @@ userroutes.put('/edit-product/:id', Checkauth, upload.single('image'), async (re
       phone_number: req.body.phone_number ? req.body.phone_number : olddata.phone_number,
       address: req.body.address ? req.body.address : olddata.address,
       pin_code: req.body.pin_code ? req.body.pin_code : olddata.pin_code,
+      condition: req.body.condition ? req.body.condition : olddata.condition,
+      transferType: req.body.transferType ? req.body.transferType : olddata.transferType,
+      estimatedValue: req.body.estimatedValue !== undefined ? req.body.estimatedValue : olddata.estimatedValue,
+      recoveryAmount: req.body.recoveryAmount !== undefined ? req.body.recoveryAmount : olddata.recoveryAmount,
     };
     console.log('newdata', newdata);
     const updatedData = await products.updateMany(

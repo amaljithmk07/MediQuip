@@ -73,11 +73,11 @@ const AcceptedOrders = () => {
   };
 
   return (
-    <div className="accepted-orders-main-body">
+    <div className="w-full  mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <Toaster />
-      <div className="a-o-sub-body">
-        <div className="a-o-body-head">Accepted Orders</div>
-        <div className="a-o-content-body">
+      <div className="bg-white rounded-premium shadow-soft border border-border p-6 md:p-8">
+        <h2 className="text-2xl font-bold text-slate-800 mb-6">Accepted Orders</h2>
+        <div className="w-full overflow-x-auto">
           {acceptedorders != '' ? (
             <>
               <div className="a-o-content-title-sec">

@@ -70,56 +70,54 @@ const NewProductList = () => {
   };
 
   return (
-    <div className="volunteer-pro-approve-main-body">
+    <div className="w-full  mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <Toaster />
-      <div className="volunteer-pro-approve-content-body">
-        <div className="volunteer-pro-approve-cards-body">
-          <div className="volunteer-pro-approve-cards-heading">NEW ARRIVALS </div>
+      <div className="bg-white rounded-premium shadow-soft border border-border p-6 md:p-8">
+        <h2 className="text-2xl font-bold text-slate-800 mb-6">NEW EQUIPMENT</h2>
 
-          {product.length > 0 ? (
-            <>
-              {product.map((item) => (
-                <div className="volunteer-pro-approve-card" key={item._id}>
-                  <div className="volunteer-pro-approve-card-image-sec">
-                    <img src={item.image} alt="" className="volunteer-pro-approve-card-image" />
+        {product.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {product.map((item) => (
+              <div className="card flex flex-col" key={item._id}>
+                <div className="h-48 bg-slate-50 flex items-center justify-center p-4 border-b border-border">
+                  <img
+                    src={item.image}
+                    alt=""
+                    className="max-h-full max-w-full object-contain mix-blend-multiply"
+                  />
+                </div>
+                <div className="p-5 flex flex-col flex-grow">
+                  <h3 className="text-lg font-bold text-slate-800 mb-1">{item.name}</h3>
+                  <div className="text-sm text-slate-500 mb-4">
+                    {item.category} &bull; {item.sub_category} <br />
+                    Available: {item.available_qty}
                   </div>
-                  <div className="volunteer-pro-approve-card-details">
-                    <h3 className="volunteer-pro-approve-card-details-h3">{item.name}</h3>
-                    <h4 className="volunteer-pro-approve-card-details-h4">{item.available_qty}</h4>
-                    <h4 className="volunteer-pro-approve-card-details-h4">{item.category}</h4>
-                    <h4 className="volunteer-pro-approve-card-details-h4">{item.sub_category}</h4>
-                    <h4 className="volunteer-pro-approve-card-details-h4">{item.description}</h4>
-                  </div>
-                  <div className="volunteer-pro-approve-card-buttons">
+                  <p className="text-sm text-slate-600 mb-6 line-clamp-2">{item.description}</p>
+                  <div className="mt-auto flex items-center gap-3">
                     <button
-                      className="volunteer-pro-approve"
+                      className="btn btn-primary flex-1"
                       onClick={() => productApprove(item._id)}
                     >
                       Approve
                     </button>
-
-                    <button
-                      className="volunteer-pro-approve-item"
-                      onClick={() => productReject(item._id)}
-                    >
-                      <img
-                        src="https://res.cloudinary.com/dqc2xhnac/image/upload/v1708583150/Med-equip/tbypsdgwgnzvnbthgdfd.png"
-                        alt=""
-                        className="volunteer-pro-approve-logo"
-                      />
+                    <button className="btn btn-danger px-4" onClick={() => productReject(item._id)}>
+                      Reject
                     </button>
                   </div>
                 </div>
-              ))}
-            </>
-          ) : (
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center py-16 text-center">
             <img
               src="https://res.cloudinary.com/dqc2xhnac/image/upload/v1708583164/Med-equip/zqcstw2436ip6awww37z.png"
-              alt=""
-              className="user-no-data"
+              alt="No Data"
+              className="w-48 h-48 object-contain opacity-50 mb-6"
             />
-          )}
-        </div>
+            <h3 className="text-xl font-semibold text-slate-700">No new equipment to approve</h3>
+          </div>
+        )}
       </div>
     </div>
   );

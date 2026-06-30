@@ -46,7 +46,7 @@ export default function UserDashboard() {
   }, []);
 
   return (
-    <div className="p-8 max-w-7xl mx-auto w-full">
+    <div className="p-8  mx-auto w-full">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-slate-900">

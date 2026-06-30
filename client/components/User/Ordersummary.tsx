@@ -76,9 +76,9 @@ const Ordersummary = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="w-full  mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <Toaster />
-      <div className="max-w-5xl mx-auto">
+      <div className="w-full">
         <div className="flex justify-between items-end mb-8">
           <div>
             <h1 className="text-3xl font-display font-bold text-slate-800">Order History</h1>

@@ -57,9 +57,29 @@ const productschema = new mongoose.Schema({
   },
   product_status: {
     type: String,
-    require: true,
-    default: '',
+    enum: ['Pending Review', 'Available', 'Reserved', 'Transferred', 'Archived', 'Rejected'],
+    default: 'Pending Review',
   },
+  transferType: {
+    type: String,
+    enum: ['FREE', 'RECOVERY'],
+    default: 'FREE'
+  },
+  recoveryAmount: { type: Number, default: 0 },
+  estimatedValue: { type: Number, default: 0 },
+  condition: { type: String, default: 'Good' },
+  originalOwner: { type: Schema.Types.ObjectId, ref: 'login_tb' },
+  currentHolder: { type: Schema.Types.ObjectId, ref: 'login_tb' },
+  transferHistory: [{
+    previousOwner: { type: Schema.Types.ObjectId, ref: 'login_tb' },
+    newOwner: { type: Schema.Types.ObjectId, ref: 'login_tb' },
+    date: { type: Date, default: Date.now },
+    requestId: { type: Schema.Types.ObjectId, ref: 'order_tb' } // Will reference orderschema
+  }],
+  verifiedBy: { type: Schema.Types.ObjectId, ref: 'login_tb' },
+  verificationDate: { type: Date },
+  inspectionNotes: { type: String },
+  imagesAfterInspection: [{ type: String }],
 });
 const data = mongoose.model('Product_details', productschema);
 module.exports = data;

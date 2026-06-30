@@ -43,50 +43,43 @@ const Volunteerlist = () => {
   console.log(volunteerlist);
 
   return (
-    <div className="volunteerlist-body">
+    <div className="w-full  mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <Toaster />
-      <div className="volunteerlist-sub-body">
-        <div className="volunteerlist-sub-body-heading">VOLUNTEERS LIST</div>
+      <div className="bg-white rounded-premium shadow-soft border border-border p-6 md:p-8">
+        <h2 className="text-2xl font-bold text-slate-800 mb-6">VOLUNTEERS LIST</h2>
         {volunteerlist.length !== 0 ? (
-          <div className="volunteerlist-content">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {volunteerlist.map((data) => (
-              <div className="volunteerlist-card-body" key={data._id}>
-                <div className="volunteerlist-card-image-sec">
+              <div className="card flex flex-col items-center p-6 text-center" key={data._id}>
+                <div className="w-24 h-24 mb-4 rounded-full overflow-hidden border-4 border-slate-50 shadow-sm">
                   {data.image !== '' ? (
                     <img
-                      // src={`/upload/${data.image}`}
                       src={data.image}
-                      alt=""
-                      className="volunteerlist-card-img"
+                      alt={data.name}
+                      className="w-full h-full object-cover"
                     />
                   ) : (
                     <img
-                      // src="/volunteerprofile.png"
                       src="https://res.cloudinary.com/dqc2xhnac/image/upload/v1708583164/Med-equip/jss7plr1flat4l5j2qub.png"
-                      alt=""
-                      className="volunteerlist-card-img"
+                      alt={data.name}
+                      className="w-full h-full object-cover"
                     />
                   )}
                 </div>
-                <div className="volunteerlist-card-details">
-                  <h3 className="volunteerlist-h3"> {data.name}</h3>
-                  <h3 className="volunteerlist-h3"> {data.status}</h3>
-                  <h3 className="volunteerlist-h3"> {data.age}</h3>
-                  <h3 className="volunteerlist-h3"> {data.qualification}</h3>
-                  <h3 className="volunteerlist-h3"> {data.phone_number}</h3>
+                <div className="flex flex-col gap-1 w-full">
+                  <h3 className="text-lg font-bold text-slate-800">{data.name}</h3>
+                  <div className="inline-flex items-center justify-center">
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                      {data.status}
+                    </span>
+                  </div>
+                  <h3 className="text-sm text-slate-500 mt-2">Age: {data.age}</h3>
+                  <h3 className="text-sm text-slate-500 line-clamp-1">{data.qualification}</h3>
+                  <h3 className="text-sm font-medium text-slate-700 mt-2">{data.phone_number}</h3>
                 </div>
               </div>
             ))}
           </div>
-        ) : (
-          <>
-            <img
-              // src="/user-no-data.png"
-              src="https://res.cloudinary.com/dqc2xhnac/image/upload/v1708583164/Med-equip/zqcstw2436ip6awww37z.png"
-              alt=""
-              className="volunteerlist-vol-no-data"
-            />
-          </>
         )}
       </div>
     </div>

@@ -22,15 +22,15 @@ const NavItem = ({ href, icon: Icon, label, badge }: any) => {
   return (
     <Link href={href}>
       <div
-        className={`flex items-center justify-between px-3 py-2 rounded-md mb-1 transition-all duration-150 ${isActive ? 'bg-blue-50 text-blue-600 border-l-2 border-blue-600 font-semibold' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800 border-l-2 border-transparent font-medium'}`}
+        className={`flex items-center justify-between px-3 py-2.5 rounded-xl mb-1.5 transition-all duration-300 ${isActive ? 'bg-primary-gradient text-white shadow-glow font-bold translate-x-1' : 'text-slate-500 hover:bg-white/60 hover:text-slate-800 font-medium hover:translate-x-1'}`}
       >
         <div className="flex items-center gap-3">
-          <Icon size={18} className={isActive ? 'text-blue-600' : 'text-slate-400'} />
+          <Icon size={18} className={isActive ? 'text-white' : 'text-slate-400'} />
           <span className="text-sm">{label}</span>
         </div>
         {badge !== undefined && badge > 0 && (
           <span
-            className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? 'bg-blue-100 text-blue-700' : 'bg-slate-200 text-slate-600'}`}
+            className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? 'bg-white/20 text-white backdrop-blur-md' : 'bg-primarySoft text-primaryDark'}`}
           >
             {badge}
           </span>
@@ -59,9 +59,9 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="w-64 h-screen bg-white border-r border-slate-200 flex flex-col fixed top-0 left-0 z-40">
+    <aside className="w-64 h-screen bg-white/60 backdrop-blur-2xl border-r border-white/60 flex flex-col fixed top-0 left-0 z-40 shadow-glass">
       {/* Logo Area */}
-      <div className="h-16 flex items-center px-6 border-b border-slate-200">
+      <div className="h-16 flex items-center px-6 border-b border-white/60 bg-white/40">
         <Link href="/" className="flex items-center gap-2.5">
           <img src="/logo.png" alt="MediQuip" className="h-8 object-contain" />
         </Link>

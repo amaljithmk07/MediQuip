@@ -22,11 +22,11 @@ const Usercart = () => {
   const isEmpty = !cartitems || cartitems.length === 0 || cartitems[0] == null;
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="w-full  mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <Toaster />
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8 flex items-center justify-between">
-          <h1 className="text-3xl font-display font-bold text-slate-800">Your Equipment Cart</h1>
+      <div className="w-full">
+        <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <h1 className="text-3xl font-display font-bold text-slate-800">Your Request List</h1>
           {!isEmpty && (
             <span className="text-sm font-medium text-slate-500 bg-white px-4 py-1.5 rounded-full shadow-sm border border-slate-200">
               {cartitems.length} {cartitems.length === 1 ? 'Item' : 'Items'}
@@ -47,7 +47,7 @@ const Usercart = () => {
               available products to get started.
             </p>
             <Link
-              href="/"
+              href="/user/viewproduct"
               className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5"
             >
               Browse Equipment
@@ -188,9 +188,9 @@ const Usercart = () => {
 
             {/* Right Column: Sticky Summary */}
             <div className="w-full lg:w-1/3">
-              <div className="bg-white rounded-3xl shadow-glass border border-slate-100 p-8 sticky top-24">
+              <div className="bg-white rounded-3xl shadow-glass border border-slate-100 p-6 md:p-8 sticky top-24">
                 <h3 className="text-xl font-bold text-slate-800 mb-6 font-display">
-                  Order Summary
+                  Request Summary
                 </h3>
 
                 <div className="space-y-4 mb-6">
@@ -234,7 +234,7 @@ const Usercart = () => {
                   href="/user/order-place"
                   className="block w-full text-center bg-teal-600 hover:bg-teal-700 text-white font-bold py-4 px-4 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5"
                 >
-                  Proceed to Checkout
+                  Submit Request
                 </Link>
 
                 <div className="mt-4 text-center">

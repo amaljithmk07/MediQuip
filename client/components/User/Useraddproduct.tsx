@@ -48,6 +48,12 @@ const Useraddproduct = () => {
     formData.append('phone_number', products.phone_number);
     formData.append('address', products.address);
     formData.append('pin_code', products.pin_code);
+    formData.append('transferType', products.transferType || 'FREE');
+    if (products.transferType === 'RECOVERY') {
+      formData.append('recoveryAmount', products.recoveryAmount);
+      formData.append('estimatedValue', products.estimatedValue);
+    }
+    formData.append('condition', products.condition || 'Good');
 
     try {
       axios
@@ -73,206 +79,243 @@ const Useraddproduct = () => {
   return (
     <>
       {(uuid !== null || role == '1') && token !== null ? (
-        <div className="useraddproduct-main-body">
-          {/* <Usernavbar/> */}
-          <div className="user-addproduct-body">
-            <div className="user-addproduct-sub-body">
-              DONATE MEDICAL EQUIPMENT
-              <div className="user-addproduct-content">
-                <form
-                  action=""
-                  className="userforminput-field"
-                  onSubmit={productSubmit}
-                  encType="multipart/formdata"
-                >
-                  <div className="usercontent-left">
-                    <div className="userimage-sec">
-                      <input
-                        type="file"
-                        id="file-upload"
-                        name="image"
-                        onChange={handlePhoto}
-                        hidden
-                      />
-                      <label
-                        htmlFor="file-upload"
-                        className="cursor-pointer flex flex-col items-center justify-center border-2 border-dashed border-slate-300 rounded-xl p-8 bg-slate-50 hover:bg-slate-100 transition-colors w-full h-48"
-                      >
-                        <ImagePlus className="w-12 h-12 text-slate-400 mb-4" />
-                        <span className="text-sm text-slate-500 font-medium">
-                          Click to upload equipment image
-                        </span>
-                      </label>
-                      {products.image ? (
-                        <div className="flex items-center gap-2 mt-4 text-sm font-medium text-text bg-white p-3 rounded-lg border border-border shadow-sm">
-                          <CheckCircle className="w-5 h-5 text-success" />
-                          <span className="truncate">{products.image.name}</span>
-                        </div>
+        <div className="w-full  mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="bg-white rounded-premium shadow-soft border border-border p-6 md:p-8">
+            <h2 className="text-2xl font-bold text-slate-800 mb-6">DONATE MEDICAL EQUIPMENT</h2>
+            <div>
+              <form
+                action=""
+                className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+                onSubmit={productSubmit}
+                encType="multipart/formdata"
+              >
+                <div className="flex flex-col gap-4">
+                  <div className="userimage-sec">
+                    <input
+                      type="file"
+                      id="file-upload"
+                      name="image"
+                      onChange={handlePhoto}
+                      hidden
+                    />
+                    <label
+                      htmlFor="file-upload"
+                      className="cursor-pointer flex flex-col items-center justify-center border-2 border-dashed border-slate-300 rounded-xl p-8 bg-slate-50 hover:bg-slate-100 transition-colors w-full h-48"
+                    >
+                      <ImagePlus className="w-12 h-12 text-slate-400 mb-4" />
+                      <span className="text-sm text-slate-500 font-medium">
+                        Click to upload equipment image
+                      </span>
+                    </label>
+                    {products.image ? (
+                      <div className="flex items-center gap-2 mt-4 text-sm font-medium text-text bg-white p-3 rounded-lg border border-border shadow-sm">
+                        <CheckCircle className="w-5 h-5 text-success" />
+                        <span className="truncate">{products.image.name}</span>
+                      </div>
+                    ) : (
+                      <div className="mt-4 text-sm text-muted text-center">No image selected</div>
+                    )}
+                  </div>
+                </div>
+                <div className="flex flex-col gap-4">
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Equipment Name *"
+                      name="name"
+                      className="input mb-4"
+                      onChange={keyHandler}
+                    />
+                    <select
+                      onChange={keyHandler}
+                      // id=""
+                      className="input mb-4"
+                      name="available_qty"
+                      placeholder="Category"
+                    >
+                      <option disabled={true} value="" selected>
+                        Available Quantity
+                      </option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                    <input
+                      type="text"
+                      placeholder="Description (e.g., used for 2 months, excellent condition) *"
+                      name="description"
+                      className="input mb-4"
+                      onChange={keyHandler}
+                    />
+                    <select
+                      onChange={keyHandler}
+                      className="input mb-4"
+                      name="condition"
+                      defaultValue=""
+                    >
+                      <option disabled={true} value="">
+                        Equipment Condition *
+                      </option>
+                      <option value="New">New</option>
+                      <option value="Like New">Like New</option>
+                      <option value="Good">Good</option>
+                      <option value="Fair">Fair</option>
+                    </select>
+                    <select
+                      onChange={keyHandler}
+                      className="input mb-4"
+                      name="transferType"
+                      defaultValue=""
+                    >
+                      <option disabled={true} value="">
+                        Transfer Type *
+                      </option>
+                      <option value="FREE">Free Transfer (Donation)</option>
+                      <option value="RECOVERY">Cost Recovery Transfer</option>
+                    </select>
+
+                    {products.transferType === 'RECOVERY' && (
+                      <div className="grid grid-cols-2 gap-4 mb-4">
+                        <input
+                          type="number"
+                          placeholder="Estimated Market Value (₹) *"
+                          name="estimatedValue"
+                          className="input"
+                          onChange={keyHandler}
+                        />
+                        <input
+                          type="number"
+                          placeholder="Recovery Amount (₹) *"
+                          name="recoveryAmount"
+                          className="input"
+                          onChange={keyHandler}
+                        />
+                      </div>
+                    )}
+                    <select
+                      onChange={keyHandler}
+                      className="input mb-4"
+                      name="category"
+                      placeholder="Category"
+
+                      // defaultChecked="Category"
+                    >
+                      {/* <option value="" selected>Category</option> */}
+                      <option disabled={true} value="" selected>
+                        Category
+                      </option>
+
+                      <option value="Beds"> Beds</option>
+                      <option value="Wheel chair"> Wheel chair</option>
+                      <option value="Oxygen Concentrators">Oxygen Concentrators</option>
+                      <option value="Walking Aids"> Walking Aids</option>
+                      <option value="Patient Lift"> Patient Lift</option>
+                    </select>
+                    <select onChange={keyHandler} className="input mb-4" name="sub_category">
+                      <option disabled={true} value="" selected>
+                        Sub Category
+                      </option>
+                      {products.category == 'Beds' ? (
+                        <>
+                          <option value="Adjustable Beds">Adjustable Beds</option>
+                          <option value="Mattresses"> Mattresses</option>
+                          <option value="Home Care Beds"> Home Care Beds</option>
+                        </>
                       ) : (
-                        <div className="mt-4 text-sm text-muted text-center">No image selected</div>
+                        ''
                       )}
-                    </div>
+                      {products.category == 'Wheel chair' ? (
+                        <>
+                          <option value="Manual Wheel chair">Manual Wheel chair</option>
+                          <option value="Power Wheel chair"> Power Wheel chair</option>
+                          <option value="Standard"> Standard</option>
+                          <option value="Light Weight">Light Weight</option>
+                          <option value="Cushions And Accessories">
+                            {' '}
+                            Cushions And Accessories
+                          </option>
+                          <option value="Batteries And Chargers"> Batteries And Chargers</option>
+                          <option value="Wheels"> Wheels</option>
+                        </>
+                      ) : (
+                        ''
+                      )}
+                      {products.category == 'Oxygen Concentrators' ? (
+                        <>
+                          <option value="Stationary Units"> Stationary Units</option>
+                          <option value="Portable Units"> Portable Units</option>
+                        </>
+                      ) : (
+                        ''
+                      )}
+
+                      {products.category == 'Walking Aids' ? (
+                        <>
+                          <option value="Walkers"> Walkers</option>
+                          <option value="Rollator"> Rollator</option>
+                          <option value="Knee Roller"> Knee Roller</option>
+                          <option value="Upright Walker"> Upright Walker</option>
+                        </>
+                      ) : (
+                        ''
+                      )}
+                      {products.category == 'Patient Lift' ? (
+                        <>
+                          <option value="Manual Lift"> Manual Lift</option>
+                          <option value="Power Lift"> Power Lift</option>
+                          <option value="Stand-up Lift"> Stand-up Lift</option>
+                          <option value="Heavy Duty Lift"> Heavy Duty Lift</option>
+                        </>
+                      ) : (
+                        ''
+                      )}
+                    </select>
+                    <input
+                      type="text"
+                      placeholder="Email Address *"
+                      className="input mb-4"
+                      name="email"
+                      onChange={keyHandler}
+                    />
+                    <input
+                      type="date"
+                      placeholder="Purchase date"
+                      name="purchased_date"
+                      className="input mb-4"
+                      onChange={keyHandler}
+                    />
+                    <input
+                      type="number"
+                      placeholder="Phone Number"
+                      className="input mb-4"
+                      name="phone_number"
+                      onChange={keyHandler}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Address"
+                      className="input mb-4"
+                      name="address"
+                      onChange={keyHandler}
+                    />
+
+                    <input
+                      type="number"
+                      placeholder="Pin code"
+                      className="input mb-4"
+                      name="pin_code"
+                      onChange={keyHandler}
+                    />
+                    <input
+                      type="submit"
+                      value={'LIST FOR DONATION'}
+                      className="btn btn-primary w-full mt-2"
+                    />
                   </div>
-                  <div className="usercontent-right">
-                    <div className="userinput-field">
-                      <input
-                        type="text"
-                        placeholder="Equipment Name *"
-                        name="name"
-                        className="user-product-input"
-                        onChange={keyHandler}
-                      />
-                      <select
-                        onChange={keyHandler}
-                        // id=""
-                        className="user-product-input-dropdown"
-                        name="available_qty"
-                        placeholder="Category"
-                      >
-                        <option disabled={true} value="" selected>
-                          Available Quantity
-                        </option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                      </select>
-                      <input
-                        type="text"
-                        placeholder="Description (e.g., used for 2 months, excellent condition) *"
-                        name="description"
-                        className="user-product-input"
-                        onChange={keyHandler}
-                      />
-                      <select
-                        onChange={keyHandler}
-                        className="user-product-input-dropdown"
-                        name="category"
-                        placeholder="Category"
-
-                        // defaultChecked="Category"
-                      >
-                        {/* <option value="" selected>Category</option> */}
-                        <option disabled={true} value="" selected>
-                          Category
-                        </option>
-
-                        <option value="Beds"> Beds</option>
-                        <option value="Wheel chair"> Wheel chair</option>
-                        <option value="Oxygen Concentrators">Oxygen Concentrators</option>
-                        <option value="Walking Aids"> Walking Aids</option>
-                        <option value="Patient Lift"> Patient Lift</option>
-                      </select>
-                      <select
-                        onChange={keyHandler}
-                        className="user-product-input-dropdown"
-                        name="sub_category"
-                      >
-                        <option disabled={true} value="" selected>
-                          Sub Category
-                        </option>
-                        {products.category == 'Beds' ? (
-                          <>
-                            <option value="Adjustable Beds">Adjustable Beds</option>
-                            <option value="Mattresses"> Mattresses</option>
-                            <option value="Home Care Beds"> Home Care Beds</option>
-                          </>
-                        ) : (
-                          ''
-                        )}
-                        {products.category == 'Wheel chair' ? (
-                          <>
-                            <option value="Manual Wheel chair">Manual Wheel chair</option>
-                            <option value="Power Wheel chair"> Power Wheel chair</option>
-                            <option value="Standard"> Standard</option>
-                            <option value="Light Weight">Light Weight</option>
-                            <option value="Cushions And Accessories">
-                              {' '}
-                              Cushions And Accessories
-                            </option>
-                            <option value="Batteries And Chargers"> Batteries And Chargers</option>
-                            <option value="Wheels"> Wheels</option>
-                          </>
-                        ) : (
-                          ''
-                        )}
-                        {products.category == 'Oxygen Concentrators' ? (
-                          <>
-                            <option value="Stationary Units"> Stationary Units</option>
-                            <option value="Portable Units"> Portable Units</option>
-                          </>
-                        ) : (
-                          ''
-                        )}
-
-                        {products.category == 'Walking Aids' ? (
-                          <>
-                            <option value="Walkers"> Walkers</option>
-                            <option value="Rollator"> Rollator</option>
-                            <option value="Knee Roller"> Knee Roller</option>
-                            <option value="Upright Walker"> Upright Walker</option>
-                          </>
-                        ) : (
-                          ''
-                        )}
-                        {products.category == 'Patient Lift' ? (
-                          <>
-                            <option value="Manual Lift"> Manual Lift</option>
-                            <option value="Power Lift"> Power Lift</option>
-                            <option value="Stand-up Lift"> Stand-up Lift</option>
-                            <option value="Heavy Duty Lift"> Heavy Duty Lift</option>
-                          </>
-                        ) : (
-                          ''
-                        )}
-                      </select>
-                      <input
-                        type="text"
-                        placeholder="Email Address *"
-                        className="user-product-input"
-                        name="email"
-                        onChange={keyHandler}
-                      />
-                      <input
-                        type="date"
-                        placeholder="Purchase date"
-                        name="purchased_date"
-                        className="user-product-input"
-                        onChange={keyHandler}
-                      />
-                      <input
-                        type="number"
-                        placeholder="Phone Number"
-                        className="user-product-input"
-                        name="phone_number"
-                        onChange={keyHandler}
-                      />
-                      <input
-                        type="text"
-                        placeholder="Address"
-                        className="user-product-input"
-                        name="address"
-                        onChange={keyHandler}
-                      />
-
-                      <input
-                        type="number"
-                        placeholder="Pin code"
-                        className="user-product-input"
-                        name="pin_code"
-                        onChange={keyHandler}
-                      />
-                      <input
-                        type="submit"
-                        value={'LIST FOR DONATION'}
-                        className="user-product-submit"
-                        // onClick={productSubmit}
-                      />
-                    </div>
-                  </div>
-                </form>
-              </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>

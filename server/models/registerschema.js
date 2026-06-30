@@ -8,6 +8,8 @@ const registerschema = new Schema({
   age: { type: String, required: true },
   phone_number: { type: String, required: true },
   user_id: { type: String, required: true },
+  upiId: { type: String },
+  upiVerified: { type: Boolean, default: false },
 });
 
 var Registerdata = mongoose.model('register_tb', registerschema); //model creation

@@ -66,20 +66,27 @@ const Profilehome = () => {
   if (!profile) return null;
 
   return (
-    <div className="w-full bg-base-surface min-h-screen py-12">
+    <div className="w-full min-h-screen py-12 animate-fade-in">
       <Toaster />
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-base-text font-sans">My Profile</h1>
-          <p className="text-base-muted mt-2 text-sm">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-10 text-center animate-fade-in-up">
+          <h1 className="text-4xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primaryDark to-primary">My Profile</h1>
+          <p className="text-muted mt-3 text-base">
             Manage your personal information and account details.
           </p>
         </div>
 
-        <Card className="overflow-hidden">
-          <div className="bg-white p-8">
-            <div className="flex flex-col items-center mb-8 pb-8 border-b border-base-border">
-              <div className="w-24 h-24 rounded-full overflow-hidden mb-4 border-4 border-slate-50 shadow-sm">
+        <div className="card max-w-4xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          {/* Premium Hero Banner */}
+          <div className="h-40 bg-primary-gradient relative overflow-hidden">
+            <div className="absolute inset-0 bg-white/10 backdrop-blur-3xl mix-blend-overlay"></div>
+            <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+          </div>
+          
+          <div className="px-8 pb-10 relative">
+            {/* Avatar Section */}
+            <div className="flex flex-col items-center -mt-20 mb-8 pb-8 border-b border-border/50">
+              <div className="w-32 h-32 rounded-full overflow-hidden mb-4 border-4 border-white shadow-premium relative bg-white">
                 <img
                   src={
                     profile.image ||
@@ -89,8 +96,8 @@ const Profilehome = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h2 className="text-xl font-bold text-base-text">{profile.name}</h2>
-              <span className="text-sm font-medium text-primary mt-1 uppercase tracking-wider">
+              <h2 className="text-2xl font-display font-bold text-text">{profile.name}</h2>
+              <span className="inline-block mt-2 px-4 py-1.5 rounded-full bg-primarySoft text-primaryDark text-xs font-bold uppercase tracking-widest shadow-sm">
                 {role == '3' ? 'Volunteer Account' : 'User Account'}
               </span>
             </div>
@@ -104,8 +111,8 @@ const Profilehome = () => {
                   <Input
                     type="text"
                     value={profile.name || ''}
-                    disabled
-                    className="bg-slate-50 border-transparent text-slate-700"
+                    readOnly
+                    className="bg-slate-50 border-transparent text-slate-800 cursor-default"
                   />
                 </div>
 
@@ -116,8 +123,8 @@ const Profilehome = () => {
                   <Input
                     type="text"
                     value={profile.email || ''}
-                    disabled
-                    className="bg-slate-50 border-transparent text-slate-700"
+                    readOnly
+                    className="bg-slate-50 border-transparent text-slate-800 cursor-default"
                   />
                 </div>
 
@@ -128,8 +135,8 @@ const Profilehome = () => {
                   <Input
                     type="text"
                     value={profile.phone_number || ''}
-                    disabled
-                    className="bg-slate-50 border-transparent text-slate-700"
+                    readOnly
+                    className="bg-slate-50 border-transparent text-slate-800 cursor-default"
                   />
                 </div>
 
@@ -140,8 +147,8 @@ const Profilehome = () => {
                   <Input
                     type="text"
                     value={profile.age || ''}
-                    disabled
-                    className="bg-slate-50 border-transparent text-slate-700"
+                    readOnly
+                    className="bg-slate-50 border-transparent text-slate-800 cursor-default"
                   />
                 </div>
 
@@ -180,21 +187,21 @@ const Profilehome = () => {
                     <Input
                       type="text"
                       value={profile.user_id || ''}
-                      disabled
-                      className="bg-slate-50 border-transparent text-slate-700"
+                      readOnly
+                      className="bg-slate-50 border-transparent text-slate-800 cursor-default"
                     />
                   </div>
                 )}
               </div>
 
               <div className="pt-8 flex justify-center">
-                <Button size="lg" className="px-12" onClick={handleNavigateUpdate}>
+                <Button size="lg" className="px-12 bg-primary-gradient border-none hover:shadow-glow" onClick={handleNavigateUpdate}>
                   Update Profile
                 </Button>
               </div>
             </div>
           </div>
-        </Card>
+        </div>
       </div>
     </div>
   );

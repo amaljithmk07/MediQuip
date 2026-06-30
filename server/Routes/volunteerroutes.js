@@ -5,6 +5,9 @@ const volunteerDB = require('../models/volunteerRegisterschema');
 const LoginDB = require('../models/loginschema');
 const Products = require('../models/productschema');
 const OrdersDB = require('../models/orderschema');
+const PaymentDB = require('../models/paymentschema');
+const AuditLogDB = require('../models/auditlogschema');
+const NotificationDB = require('../models/notificationschema');
 const multer = require('multer');
 const { default: mongoose } = require('mongoose');
 const cloudinary = require('cloudinary').v2;
@@ -421,27 +424,82 @@ volunteerroutes.post('/order-status', Checkauth, async (req, res) => {
 //----OrderStatus 'pending' to 'Accept' when volunteer accept the order
 
 volunteerroutes.put('/order-accept/:id', Checkauth, async (req, res) => {
-  const vol_id = req.userData.userId;
-  const accepted = await OrdersDB.updateOne(
-    {
-      _id: req.params.id,
-    },
-    {
-      $set: {
-        orderstatus: 'Order Accepted',
+  const session = await mongoose.startSession();
+  session.startTransaction();
+  try {
+    const vol_id = req.userData.userId;
+    const order_id = req.params.id;
 
-        volunteerdetails: vol_id,
-      },
+    const order = await OrdersDB.findById(order_id).session(session);
+    if (!order) {
+      throw new Error('Order not found');
     }
-  );
-  if (accepted) {
+
+    // 1. Update Request status to 'Approved'
+    order.orderstatus = 'Approved';
+    order.volunteerdetails = vol_id;
+    await order.save({ session });
+
+    // 2. Update Equipment status to 'Reserved' and set expiry
+    let product;
+    if (order.product_id) {
+      product = await Products.findById(order.product_id).session(session);
+      if (product) {
+        product.product_status = 'Reserved';
+        order.reservedAt = new Date();
+        order.reservationExpiresAt = new Date(Date.now() + 48 * 60 * 60 * 1000); // 48 hours
+        await product.save({ session });
+      }
+    }
+
+    // 3. Create Payment record (if RECOVERY)
+    if (product && product.transferType === 'RECOVERY') {
+      const payment = new PaymentDB({
+        request_id: order._id,
+        amount: product.recoveryAmount,
+        screenshotUrl: 'pending', // Placeholder until user uploads
+        donorConfirmed: false,
+        verificationStatus: 'Pending'
+      });
+      await payment.save({ session });
+      // Update request to Awaiting Payment
+      order.orderstatus = 'Awaiting Payment';
+      await order.save({ session });
+    }
+
+    // 4. Create Audit Log entry
+    const audit = new AuditLogDB({
+      actor_id: vol_id,
+      action: 'APPROVE_REQUEST',
+      description: 'Volunteer approved the request',
+      entityId: order._id,
+      entityModel: 'orders_tb',
+    });
+    await audit.save({ session });
+
+    // 5. Generate Notification
+    const notification = new NotificationDB({
+      user_id: order.login_id,
+      title: 'Request Approved',
+      message: 'Your request has been approved by a volunteer.',
+      type: 'Donation Approved',
+      relatedEntity: order._id,
+      entityModel: 'orders_tb',
+    });
+    await notification.save({ session });
+
+    await session.commitTransaction();
+    session.endSession();
+
     res.status(200).json({
       success: true,
       error: false,
       message: 'Accepted Successfull',
-      data: accepted,
+      data: order,
     });
-  } else {
+  } catch (err) {
+    await session.abortTransaction();
+    session.endSession();
     res.status(400).json({
       success: false,
       error: true,
@@ -449,7 +507,6 @@ volunteerroutes.put('/order-accept/:id', Checkauth, async (req, res) => {
       ErrorMessage: err.message,
     });
   }
-  // console.log("accepted", accepted);
 });
 
 //---- Displaying accepted orders for the individual volunteers

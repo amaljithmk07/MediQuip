@@ -56,9 +56,16 @@ const orderschema = new mongoose.Schema({
     required: true,
   },
   orderstatus: {
-    default: 'pending',
     type: String,
+    enum: ['Submitted', 'Under Review', 'Approved', 'Volunteer Assigned', 'Ready for Delivery', 'Out for Delivery', 'Delivered', 'Completed', 'Cancelled', 'Rejected'],
+    default: 'Submitted',
   },
+  product_id: {
+    type: Schema.Types.ObjectId,
+    ref: 'Product_details'
+  },
+  reservedAt: { type: Date },
+  reservationExpiresAt: { type: Date },
 
   volunteerdetails: {
     type: Schema.Types.ObjectId,
